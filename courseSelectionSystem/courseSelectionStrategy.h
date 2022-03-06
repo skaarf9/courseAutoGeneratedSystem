@@ -6,8 +6,11 @@
 class courseSelectTeacherStrategy
 {
 public:
-	/*为课程分配老师*/
-	void courseSelectT();
+	/*为课程分配老师与班级*/
+	void courseSelectTeacherAndClass();
+
+	/* 为课程分配教室与时间 */
+	void courseSelectClassroomAndTime();
 	/*构造函数*/
 	courseSelectTeacherStrategy(vector<teacher> teachers, vector<subject> subjects, vector<myClass> classes, vector<classroom> rooms) :teachers(teachers), subjects(subjects), classes(classes), rooms(rooms){};
 	

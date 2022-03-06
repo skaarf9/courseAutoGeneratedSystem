@@ -21,6 +21,11 @@ void subject::setWorkload(int workload)
 	this->workload = workload;
 }
 
+void subject::setWeeklyLessonNum(int num)
+{
+	this->weeklyLessonNum = num;
+}
+
 string subject::getName()
 {
 	return this->name;

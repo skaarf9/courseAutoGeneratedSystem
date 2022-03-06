@@ -31,12 +31,14 @@ public:
 	subject getSubject()const;
 	/*设置时间与教室*/
 	void set_room_time(classroomAndTime room_time);
-	/*课程是否有冲突*/
-	bool isConflict(const course& other_one, int cmpIndex);
 	/*获取时间与教室*/
 	classroomAndTime getClassroomAndTime();
 	/*获取老师*/
 	teacher getTeacher();
+	/*获取班级*/
+	vector<myClass> getClasses();
+	/*添加一个每周上课时间*/
+	void addClassTimeWeekly(WeeklyLesson ls);
 private:
 	/*教师id*/
 	teacher teacher;

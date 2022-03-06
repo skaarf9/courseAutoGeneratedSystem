@@ -29,16 +29,6 @@ void course::set_room_time(classroomAndTime room_time)
 	this->room_time = room_time;
 }
 
-bool course::isConflict(const course& other_one, int cmpIndex)
-{
-	/*如果时间与老师相同或者时间与教室相同或者时间与班级冲突,有一样冲突则课程冲突*/
-	bool time_teacher = this->teacher == other_one.teacher && this->room_time.getTime().isConflicting(other_one.room_time.getTime(), cmpIndex);
-	bool time_room = this->room_time.isConflict(other_one.room_time, cmpIndex);
-	//todo 班级冲突检测
-	bool time_class = true;
-	return time_teacher && time_class && time_room;
-}
-
 classroomAndTime course::getClassroomAndTime()
 {
 	return this->room_time;
@@ -47,4 +37,14 @@ classroomAndTime course::getClassroomAndTime()
 teacher course::getTeacher()
 {
 	return this->teacher;
+}
+
+vector<myClass> course::getClasses()
+{
+	return this->classes;
+}
+
+void course::addClassTimeWeekly(WeeklyLesson ls)
+{
+	this->room_time.addClassTimeWeekly(ls);
 }

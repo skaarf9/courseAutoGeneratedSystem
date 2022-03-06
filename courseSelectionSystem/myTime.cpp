@@ -1,12 +1,13 @@
 #include "myTime.h"
 
-bool myTime::isConflicting(const myTime & other_time, int cmpIndex)
+bool myTime::isConflict(const myTime & other_time, WeeklyLesson weeklyLesson)
 {
 	/*如果A在B结束后开始, 或者A在B开始前结束, 那么A与B就不相交, 我们取反,就是A与B相交的情况*/
 	if (!(this->startWeek > other_time.endWeek || this->endWeek < other_time.startWeek)) {
-		/*遍历A中的每周课程,如果与B中的每周课程重合那么就会产生冲突*/
+		/*遍历A中的每周课程,如果与weeklyLesson重合那么就会产生冲突*/
 		for (WeeklyLesson this_one : this->weeklyLessons) {
-			if (this_one.dailyLesson == other_time.weeklyLessons[cmpIndex].dailyLesson && this_one.week == other_time.weeklyLessons[cmpIndex].week) {
+			if (this_one == weeklyLesson)
+			{
 				return true;
 			}
 		}
@@ -39,6 +40,11 @@ void myTime::setWeeklyLessons(int i, WeeklyLesson ls)
 	this->weeklyLessons[i] = ls;
 }
 
+void myTime::addWeeklyLessons(WeeklyLesson lesson)
+{
+	this->weeklyLessons.push_back(lesson);
+}
+
 int WeeklyLesson::castToInt()
 {
 	return this->week * 4 + this->dailyLesson;
@@ -47,6 +53,16 @@ int WeeklyLesson::castToInt()
 bool WeeklyLesson::operator==(const WeeklyLesson & other_one)
 {
 	return this->dailyLesson == other_one.dailyLesson && this->week == other_one.week;
+}
+
+bool WeeklyLesson::operator<(const WeeklyLesson & other_one)
+{
+	return this->week == other_one.week? this->dailyLesson < other_one.dailyLesson :this->week < other_one.week;
+}
+
+bool WeeklyLesson::operator<=(const WeeklyLesson & other_one)
+{
+	return this->week == other_one.week ? this->dailyLesson <= other_one.dailyLesson : this->week < other_one.week;
 }
 
 WeeklyLesson WeeklyLesson::firstLesson()

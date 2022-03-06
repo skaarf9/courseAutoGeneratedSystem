@@ -29,6 +29,8 @@ public:
 	/*返回该节课程对应的数字,数字范围为0-27(包括周六周末的情况)*/
 	int castToInt();
 	bool operator == (const WeeklyLesson& other_one);
+	bool operator < (const WeeklyLesson& other_one);
+	bool operator <= (const WeeklyLesson& other_one);
 	/*返回一个每周第一节课程的时间*/
 	static WeeklyLesson firstLesson();
 	/*返回一个中间的时间*/
@@ -49,6 +51,13 @@ private:
 	DailyLesson dailyLesson;
 };
 
+class specificTime {
+public:
+	int week;
+	WeeklyLesson weeklyLesson;
+	specificTime(int week, WeeklyLesson weeklyLesson) : week(week), weeklyLesson(weeklyLesson) {};
+};
+
 class myTime
 {
 public:
@@ -56,7 +65,7 @@ public:
 	myTime(unsigned short startWeek, unsigned short endWeek, vector<WeeklyLesson> weeklyLessons) : startWeek(startWeek), endWeek(endWeek), weeklyLessons(weeklyLessons) {};
 	myTime() {};
 	/*检查时间是否冲突*/
-	bool isConflicting(const myTime& other_time, int cmpIndex);
+	bool isConflict(const myTime& other_time, WeeklyLesson weeklyLesson);
 	/*获取开始周*/
 	unsigned short getStartWeek();
 	/*获取结束周*/
@@ -66,6 +75,8 @@ public:
 	/*设置每周课程对应时间*/
 	void setWeeklyLessons(vector<WeeklyLesson> ls);
 	void setWeeklyLessons(int i, WeeklyLesson ls);
+	/*添加每周课程时间*/
+	void addWeeklyLessons(WeeklyLesson lesson);
 private:
 	/*周的限定范围为1-20*/
 	/*开始周*/

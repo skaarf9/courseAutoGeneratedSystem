@@ -14,6 +14,8 @@ public:
 	int getWorkload();
 	/*设置单位工作量*/
 	void setWorkload(int workload);
+	/*设置每周课时*/
+	void setWeeklyLessonNum(int num);
 	/*获取名称*/
 	string getName();
 	/*获取学科id*/
@@ -31,7 +33,7 @@ private:
 	int workload;
 	/*学科总课时(单位日常两节课,一天不算自习总共有四课时,早晚两个)*/
 	int duration;
-	/*每周课时,最多为2,因为我只弄了每周中间时间,这一个分界点,大学课程每周的课时也确实最多2节*/
+	/*每周课时*/
 	int weeklyLessonNum;
 };
 
