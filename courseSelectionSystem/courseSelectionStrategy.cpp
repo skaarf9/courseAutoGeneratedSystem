@@ -158,8 +158,7 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 								{
 									*room_it,
 									myTime(static_cast<unsigned short>(start_week),
-										static_cast<unsigned short>(end_week),
-										vector<WeeklyLesson>())
+										static_cast<unsigned short>(end_week))
 								}, weeklyTime))
 							{
 								//如果还有别的符合条件的教室
@@ -183,8 +182,7 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 							}
 							//同一时间老师或学生冲突
 							else if (course_it->getClassroomAndTime().getTime().isConflict(myTime(static_cast<unsigned short>(start_week),
-								static_cast<unsigned short>(end_week),
-								vector<WeeklyLesson>()), weeklyTime) && (course_it->getTeacher() == it->getTeacher() || intersect_vector<myClass>(course_it->getClasses(), it->getClasses()))) {
+								static_cast<unsigned short>(end_week)), weeklyTime) && (course_it->getTeacher() == it->getTeacher() || intersect_vector<myClass>(course_it->getClasses(), it->getClasses()))) {
 								//换时间
 								changeTime = true;
 								break;
@@ -195,7 +193,7 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 						}
 						if (course_it == courses.end()) {
 							myTime temp = myTime(static_cast<unsigned short>(start_week),
-								static_cast<unsigned short>(end_week), vector<WeeklyLesson>());
+								static_cast<unsigned short>(end_week));
 							temp.addWeeklyLessons(weeklyTime);
 							//这里能完成所有courses的更新
 							it->set_room_time({ *room_it, temp });
@@ -272,6 +270,24 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 		cout << c.getInfo();
 	}
 #endif
+}
+
+void courseSelectTeacherStrategy::getWeeklyLessonByClass(myClass myClass)
+{
+	for (course c : courses) {
+		if (in_vector(c.getClasses(), myClass)) {
+			cout << c.getInfo();
+		}
+	}
+}
+
+void courseSelectTeacherStrategy::getWeeklyLessonByTeacher(teacher t)
+{
+	for (course c : courses) {
+		if (c.getTeacher() == t) {
+			cout << c.getInfo();
+		}
+	}
 }
 
 void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)

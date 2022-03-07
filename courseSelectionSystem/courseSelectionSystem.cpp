@@ -22,9 +22,7 @@ myClass c8 = myClass(18, "一年级八班");
 vector<myClass> classes = { c1, c2, c3, c4, c5, c6, c7, c8 };
 
 /*学科*/
-/*左边为学科名称, 右边为一名老师能够负责多少个班的该学科,和老师的工作量有点关系,老师的是能够承受的工作量单位,这里的就是就是多少个班的该学科授课任务对应老师的一个工作量单位
-当老师太少时会出现多个相同course的可能性,即学科和老师相同,这是否是个应该解决的问题还有待商榷
-*/
+/*左边为学科名称, 单位工作量为一名老师能够负责多少个班的该学科,和老师的工作量有点关系,老师的是能够承受的工作量单位,这里的就是就是多少个班的该学科授课任务对应老师的一个工作量单位*/
 vector<subject> subjects = {
 	/*名称 单位工作量 学科序号 学科课时(随机的) 每周课时*/
 	{"语文", 1, 1, 30, 4},
@@ -82,7 +80,9 @@ int main() {
 	}*/
 	vector<course> courses;
 	courseSelectTeacherStrategy cs = courseSelectTeacherStrategy(teachers, subjects, classes, classrooms);
-	cs.courseSelectTeacherAndClass();
-	cs.courseSelectClassroomAndTime();
+	cout << "------------------查询班级---------------" << endl;
+	cs.getWeeklyLessonByClass(c1);
+	cout << "------------------查询教师---------------" << endl;
+	cs.getWeeklyLessonByTeacher(t1);
 	return 0;
 }

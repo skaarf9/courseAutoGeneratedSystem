@@ -11,8 +11,16 @@ public:
 
 	/* 为课程分配教室与时间 */
 	void courseSelectClassroomAndTime();
+	/* 根据完成的排课情况,打印出对应班级的每周课程信息 */
+	void getWeeklyLessonByClass(myClass myClass);
+
+	/* 根据完成的排课情况,打印出对应老师的每周课程信息 */
+	void getWeeklyLessonByTeacher(teacher t);
 	/*构造函数*/
-	courseSelectTeacherStrategy(vector<teacher> teachers, vector<subject> subjects, vector<myClass> classes, vector<classroom> rooms) :teachers(teachers), subjects(subjects), classes(classes), rooms(rooms){};
+	courseSelectTeacherStrategy(vector<teacher> teachers, vector<subject> subjects, vector<myClass> classes, vector<classroom> rooms) :teachers(teachers), subjects(subjects), classes(classes), rooms(rooms){
+		courseSelectTeacherAndClass();
+		courseSelectClassroomAndTime();
+	};
 	
 private:
 	vector<myClass> classes;

@@ -63,6 +63,7 @@ class myTime
 public:
 	/*构造函数,包含初始化列表*/
 	myTime(unsigned short startWeek, unsigned short endWeek, vector<WeeklyLesson> weeklyLessons) : startWeek(startWeek), endWeek(endWeek), weeklyLessons(weeklyLessons) {};
+	myTime(unsigned short startWeek, unsigned short endWeek) : startWeek(startWeek), endWeek(endWeek) {};
 	myTime() {};
 	/*检查时间是否冲突*/
 	bool isConflict(const myTime& other_time, WeeklyLesson weeklyLesson);
