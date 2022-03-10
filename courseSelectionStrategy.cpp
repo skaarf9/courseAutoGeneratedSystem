@@ -1,14 +1,14 @@
 #include "courseSelectionStrategy.h"
 
-/* ¿ªÆô²âÊÔ´úÂë */
+/* å¼€å¯æµ‹è¯•ä»£ç  */
 #define Test
 
-/*ËùÑ¡ÔñµÄÀÏÊ¦µÄ±ê¼Ç(ÓÃÔÚ¾ØÕóÖĞ)*/
+/*æ‰€é€‰æ‹©çš„è€å¸ˆçš„æ ‡è®°(ç”¨åœ¨çŸ©é˜µä¸­)*/
 constexpr int MAX_SELECTED = -11;
-/*Ã¿ÖÜ×î´óµÄ¿ÎÊ±Êı,Èç¹û¶¨Îª28Ôò¼ÆËãÁËÖÜÁùÖÜÈÕ*/
+/*æ¯å‘¨æœ€å¤§çš„è¯¾æ—¶æ•°,å¦‚æœå®šä¸º28åˆ™è®¡ç®—äº†å‘¨å…­å‘¨æ—¥*/
 constexpr int MAX_LESSONS = 20;
 
-/*ÅĞ¶ÏÏòÁ¿ÖĞÊÇ·ñÓĞinstance*/
+/*åˆ¤æ–­å‘é‡ä¸­æ˜¯å¦æœ‰instance*/
 template<typename T>
 bool in_vector(vector<T> vector, T instance) {
 	bool result = false;
@@ -31,8 +31,8 @@ bool intersect_vector(vector<T> A, vector<T> B) {
 	return false;
 }
 
-/*³¢ÊÔÒ»ÏÂÂùÁ¦Ëã·¨*/
-/*²âÊÔÁËÏÂ´òÓ¡ËùÓĞĞòÁĞ,Ì«ÂıÁË,ËãÁË*/
+/*å°è¯•ä¸€ä¸‹è›®åŠ›ç®—æ³•*/
+/*æµ‹è¯•äº†ä¸‹æ‰“å°æ‰€æœ‰åºåˆ—,å¤ªæ…¢äº†,ç®—äº†*/
 //void cout_all_possibilities(int x, int y, string result) {
 //	if (y == 0) {
 //		cout <<result<< endl;
@@ -44,9 +44,9 @@ bool intersect_vector(vector<T> A, vector<T> B) {
 //}
 //void Brute(vector<vector<int>> matrix) {
 //	vector<int> min_result;
-//	/*ÁĞµÄÊıÁ¿*/
+//	/*åˆ—çš„æ•°é‡*/
 //	const int col = matrix[0].size();
-//	/*ĞĞµÄÊıÁ¿*/
+//	/*è¡Œçš„æ•°é‡*/
 //	const int row = matrix.size();
 //	string result;
 //	cout_all_possibilities(row, col, result);
@@ -55,9 +55,9 @@ bool intersect_vector(vector<T> A, vector<T> B) {
 
 
 
-/*½«¾ØÕóµÄµÚcolNumÁĞµÄ·½°¸½øĞĞ½»»», ´ı½»»»ĞĞ ÎªchangeRow*/
+/*å°†çŸ©é˜µçš„ç¬¬colNumåˆ—çš„æ–¹æ¡ˆè¿›è¡Œäº¤æ¢, å¾…äº¤æ¢è¡Œ ä¸ºchangeRow*/
 void change_col(int colNum, int changeRow, vector<vector<int>>& matrix) {
-	cout << "×ªÒÆµÚ" << colNum << "ÁĞ,×ªÒÆĞĞÎª" << changeRow << endl;
+	cout << "è½¬ç§»ç¬¬" << colNum << "åˆ—,è½¬ç§»è¡Œä¸º" << changeRow << endl;
 	for (int i = 0; i < matrix.size(); ++i) {
 		if (i == changeRow) {
 			continue;
@@ -74,10 +74,10 @@ void change_col(int colNum, int changeRow, vector<vector<int>>& matrix) {
 
 void courseSelectTeacherStrategy::courseSelectTeacherAndClass()
 {
-	/*³õÊ¼»¯¾ØÕó,ÓÃÓÚÑ¡È¡Ã¿¸ö¿Î³ÌµÄÀÏÊ¦*/
+	/*åˆå§‹åŒ–çŸ©é˜µ,ç”¨äºé€‰å–æ¯ä¸ªè¯¾ç¨‹çš„è€å¸ˆ*/
 	this->init_matrix(this->changeSubjects(subjects));
 	//Brute(matrix);
-	/*ÑéÖ¤Ò»ÏÂsubjectsÃ»ÓĞ±»¸Ä±ä*/
+	/*éªŒè¯ä¸€ä¸‹subjectsæ²¡æœ‰è¢«æ”¹å˜*/
 	/*for (auto subject : subjects) {
 		cout << subject.getWorkload() << endl;
 	}*/
@@ -87,7 +87,7 @@ void courseSelectTeacherStrategy::courseSelectTeacherAndClass()
 		}
 		cout << endl;
 	}*/
-	/*¸ù¾İ¾ØÕóµÃ³öÁËÑ¡È¡µÄÀÏÊ¦, ÏÖÔÚĞèÒªÉú³ÉcourseÏòÁ¿¼¯²¢Ìí¼Ó°à¼¶ĞÅÏ¢*/
+	/*æ ¹æ®çŸ©é˜µå¾—å‡ºäº†é€‰å–çš„è€å¸ˆ, ç°åœ¨éœ€è¦ç”Ÿæˆcourseå‘é‡é›†å¹¶æ·»åŠ ç­çº§ä¿¡æ¯*/
 	courses.clear();
 	int teacher_index = 0;
 	int col = 0;
@@ -104,7 +104,7 @@ void courseSelectTeacherStrategy::courseSelectTeacherAndClass()
 				break;
 			}
 		}
-		/*¸ù¾İmatrix»ñÈ¡teacher_index,Ò²¾ÍÊÇ-11µÄrow*/
+		/*æ ¹æ®matrixè·å–teacher_index,ä¹Ÿå°±æ˜¯-11çš„row*/
 		for (int i = 0; i < matrix.size(); ++i) {
 			if (matrix[i][col] == -11) {
 				teacher_index = i;
@@ -116,29 +116,29 @@ void courseSelectTeacherStrategy::courseSelectTeacherAndClass()
 		courses.push_back(course_instance);
 	}
 #ifdef Test
-	cout << "Íê³É½ÌÊ¦Óë°à¼¶ĞÅÏ¢µÄÌí¼Ó" << endl;
+	cout << "å®Œæˆæ•™å¸ˆä¸ç­çº§ä¿¡æ¯çš„æ·»åŠ " << endl;
 #endif
 }
 
 void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 {
-	/*ÏÂÒ»²½,Îª¿Î³ÌÌí¼ÓÊ±¼äÓë½ÌÊÒ*/
+	/*ä¸‹ä¸€æ­¥,ä¸ºè¯¾ç¨‹æ·»åŠ æ—¶é—´ä¸æ•™å®¤*/
 	bool complete_all = false;
-	/*ÅÅĞòcourse,ÈÃÆä°´ÕÕÑ§¿ÆµÄ¹¤×÷Á¿(°à¼¶ÊıÁ¿)´Ó´óµ½Ğ¡ÅÅĞò(ÖØÔØÁË<·ûºÅ)*/
+	/*æ’åºcourse,è®©å…¶æŒ‰ç…§å­¦ç§‘çš„å·¥ä½œé‡(ç­çº§æ•°é‡)ä»å¤§åˆ°å°æ’åº(é‡è½½äº†<ç¬¦å·)*/
 	sort(&courses[0], &courses[0] + courses.size());
 	int start_index = 1;
 	while (!complete_all) {
 
-		//Õâ¸öforÑ­»·ÓÃÓÚÕÒµ½³õÊ¼µÄ½ÌÊÒºÍÊ±¼ä
+		//è¿™ä¸ªforå¾ªç¯ç”¨äºæ‰¾åˆ°åˆå§‹çš„æ•™å®¤å’Œæ—¶é—´
 		vector<course>::iterator it = courses.begin();
 		for (; it != courses.end(); ++it) {
-			//Èç¹û¿Î³ÌÒÑ¾­ÉèÖÃÁË°à¼¶ºÍÊ±¼äÔòÌø¹ı(Î´Íê³ÉÉèÖÃµÄ»áÔÚºóÃæÖØÖÃÎª¿Õ)
+			//å¦‚æœè¯¾ç¨‹å·²ç»è®¾ç½®äº†ç­çº§å’Œæ—¶é—´åˆ™è·³è¿‡(æœªå®Œæˆè®¾ç½®çš„ä¼šåœ¨åé¢é‡ç½®ä¸ºç©º)
 			if (!it->getClassroomAndTime().isEmpty())continue;
-			/*¿ªÊ¼ÖÜ: ³õÊ¼ÎªµÚÒ»ÖÜµÚÒ»½Ú¿ÎµÄÊ±¼ä,Ò²¿ÉÒÔÉèÖÃÎªÆäËûµÄ,Ö»Òª×îºóÄÜÈİÄÉËùÓĞµÄ¿Î³Ì¾ÍºÃ*/
+			/*å¼€å§‹å‘¨: åˆå§‹ä¸ºç¬¬ä¸€å‘¨ç¬¬ä¸€èŠ‚è¯¾çš„æ—¶é—´,ä¹Ÿå¯ä»¥è®¾ç½®ä¸ºå…¶ä»–çš„,åªè¦æœ€åèƒ½å®¹çº³æ‰€æœ‰çš„è¯¾ç¨‹å°±å¥½*/
 			int start_week = start_index;
-			/*½áÊøÖÜ,ÓÉ¿ªÊ¼ÖÜÓëÑ§¿Æ¿ÎÊ±ÔÙ¼ÓÃ¿ÖÜ¿ÎÊ±¼ÆËã³ö½áÊøÖÜ,ÏòÉÏÈ¡Õû*/
+			/*ç»“æŸå‘¨,ç”±å¼€å§‹å‘¨ä¸å­¦ç§‘è¯¾æ—¶å†åŠ æ¯å‘¨è¯¾æ—¶è®¡ç®—å‡ºç»“æŸå‘¨,å‘ä¸Šå–æ•´*/
 			int end_week = (it->getSubject().getDuration() - 1) / it->getSubject().getWeeklyLessonNum() + start_week;
-			/*½ÌÊÒÏŞÖÆ´óĞ¡*/
+			/*æ•™å®¤é™åˆ¶å¤§å°*/
 			int room_size_limit = it->getClasses().size();
 			for (; end_week <= 20; ++start_week) {
 				bool complete = false;
@@ -146,14 +146,14 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 					vector<classroom>::iterator room_it = this->rooms.begin();
 					for (; room_it != this->rooms.end(); ++room_it) {
 						bool changeTime = false;
-						//Èç¹û½ÌÊÒÌ«Ğ¡ÔòÌø¹ı
-						//ÕâÀï¿ÉÒÔÌí¼Ó×Ô¶¨Òå½ÌÊÒ¹æÔò
+						//å¦‚æœæ•™å®¤å¤ªå°åˆ™è·³è¿‡
+						//è¿™é‡Œå¯ä»¥æ·»åŠ è‡ªå®šä¹‰æ•™å®¤è§„åˆ™
 						if (room_it->getCapacity() < room_size_limit)continue;
 						vector<course>::iterator course_it = courses.begin();
 						for (; course_it != courses.end(); ++course_it) {
-							//Èç¹û¸Ã¿Î³ÌÃ»ÓĞÉèÖÃ½ÌÊÒºÍÊ±¼äÔòÌø¹ı
+							//å¦‚æœè¯¥è¯¾ç¨‹æ²¡æœ‰è®¾ç½®æ•™å®¤å’Œæ—¶é—´åˆ™è·³è¿‡
 							if (course_it->getClassroomAndTime().isEmpty())continue;
-							//Ê±¼äÓë½ÌÊÒ³åÍ»
+							//æ—¶é—´ä¸æ•™å®¤å†²çª
 							if (course_it->getClassroomAndTime().isConflict(
 								{
 									*room_it,
@@ -161,12 +161,12 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 										static_cast<unsigned short>(end_week))
 								}, weeklyTime))
 							{
-								//Èç¹û»¹ÓĞ±ğµÄ·ûºÏÌõ¼şµÄ½ÌÊÒ
+								//å¦‚æœè¿˜æœ‰åˆ«çš„ç¬¦åˆæ¡ä»¶çš„æ•™å®¤
 								bool changeClassroom = false;
 								vector<classroom>::iterator temp_it = room_it + 1;
 								for (; temp_it != this->rooms.end(); ++temp_it) {
 									if (temp_it->getCapacity() >= room_size_limit) {
-										//»»½ÌÊÒ
+										//æ¢æ•™å®¤
 										room_it = temp_it - 1;
 										changeClassroom = true;
 										break;
@@ -175,15 +175,15 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 								if (changeClassroom) {
 									break;
 								}
-								//Ö´ĞĞµ½ÕâÀïËµÃ÷Ã»ÓĞºÏÊÊµÄ½ÌÊÒÁË
-								//»»Ê±¼ä
+								//æ‰§è¡Œåˆ°è¿™é‡Œè¯´æ˜æ²¡æœ‰åˆé€‚çš„æ•™å®¤äº†
+								//æ¢æ—¶é—´
 								changeTime = true;
 								break;
 							}
-							//Í¬Ò»Ê±¼äÀÏÊ¦»òÑ§Éú³åÍ»
+							//åŒä¸€æ—¶é—´è€å¸ˆæˆ–å­¦ç”Ÿå†²çª
 							else if (course_it->getClassroomAndTime().getTime().isConflict(myTime(static_cast<unsigned short>(start_week),
 								static_cast<unsigned short>(end_week)), weeklyTime) && (course_it->getTeacher() == it->getTeacher() || intersect_vector<myClass>(course_it->getClasses(), it->getClasses()))) {
-								//»»Ê±¼ä
+								//æ¢æ—¶é—´
 								changeTime = true;
 								break;
 							}
@@ -195,7 +195,7 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 							myTime temp = myTime(static_cast<unsigned short>(start_week),
 								static_cast<unsigned short>(end_week));
 							temp.addWeeklyLessons(weeklyTime);
-							//ÕâÀïÄÜÍê³ÉËùÓĞcoursesµÄ¸üĞÂ
+							//è¿™é‡Œèƒ½å®Œæˆæ‰€æœ‰coursesçš„æ›´æ–°
 							it->set_room_time({ *room_it, temp });
 							complete = true;
 							break;
@@ -211,18 +211,18 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 				++end_week;
 			}
 			if (end_week == 21) {
-				cout << "ÎŞ·¨·ÖÅä½ÌÊÒºÍÊ±¼ä" << endl;
+				cout << "æ— æ³•åˆ†é…æ•™å®¤å’Œæ—¶é—´" << endl;
 				system("pause");
 				exit(-1);
 			}
 		}
-		//Íê³ÉÁËÒ»´ÎÑ¡¿ÎÊ±¼ä,Èç¹ûÃ¿ÖÜÁ½½ÚµÄ»°»¹ĞèÒªÔÙÕÒÒ»¸öÊ±¼ä¾Í¹»ÁË
-		//ÁíÍâ,µÚÒ»´ÎÑ¡¿ÎÊÇÒÔÍ¬Ê±Õ¼ÂúÃ¿¸ö½ÌÊÒÎª·½ÏòĞ´µÄ(ÁíÒ»ÖÖÊÇ½«Ã¿¸öÊ±¼äµÄÄ³¸ö½ÌÊÒÕ¼Âú,»áµ¼ÖÂµ¥¸ö½ÌÊÒ×ÊÔ´½ôÕÅ,´Ó¶øÓ°Ïì¸Ã½ÌÊÒºóĞøÍ¬Ò»¿Î³ÌµÄ°²ÅÅ),ËùÒÔÈç¹ûµÚ¶ş´ÎÕÒ²»µ½ºÏÊÊµÄÊ±¼ä,ÄÇÃ´Ö»¿ÉÄÜÊÇ±¾Éí½ÌÊÒ¾Í²»¹»¶à
-		//ÓÉÓÚµÚ¶ş´ÎÑ¡Ê±¼äÊÇ²»ĞèÒª±éÀú½ÌÊÒ»òÕßÖÜµÄ,ËùÒÔÖ»ÄÜÁíÆğÂ¯Ôî,²»¹ı´úÂë»¹ÊÇ¿ÉÒÔ²Î¿¼µÄ
+		//å®Œæˆäº†ä¸€æ¬¡é€‰è¯¾æ—¶é—´,å¦‚æœæ¯å‘¨ä¸¤èŠ‚çš„è¯è¿˜éœ€è¦å†æ‰¾ä¸€ä¸ªæ—¶é—´å°±å¤Ÿäº†
+		//å¦å¤–,ç¬¬ä¸€æ¬¡é€‰è¯¾æ˜¯ä»¥åŒæ—¶å æ»¡æ¯ä¸ªæ•™å®¤ä¸ºæ–¹å‘å†™çš„(å¦ä¸€ç§æ˜¯å°†æ¯ä¸ªæ—¶é—´çš„æŸä¸ªæ•™å®¤å æ»¡,ä¼šå¯¼è‡´å•ä¸ªæ•™å®¤èµ„æºç´§å¼ ,ä»è€Œå½±å“è¯¥æ•™å®¤åç»­åŒä¸€è¯¾ç¨‹çš„å®‰æ’),æ‰€ä»¥å¦‚æœç¬¬äºŒæ¬¡æ‰¾ä¸åˆ°åˆé€‚çš„æ—¶é—´,é‚£ä¹ˆåªå¯èƒ½æ˜¯æœ¬èº«æ•™å®¤å°±ä¸å¤Ÿå¤š
+		//ç”±äºç¬¬äºŒæ¬¡é€‰æ—¶é—´æ˜¯ä¸éœ€è¦éå†æ•™å®¤æˆ–è€…å‘¨çš„,æ‰€ä»¥åªèƒ½å¦èµ·ç‚‰ç¶,ä¸è¿‡ä»£ç è¿˜æ˜¯å¯ä»¥å‚è€ƒçš„
 		bool done = false;
 		while (!done) {
-			//Ìø³ö´óÑ­»·µÄkey
-			//Èç¹ûÔÚÒ»´Î±éÀúºó¶¼Íê³ÉÁËÌí¼ÓÔòcomplete_allÈÔÈ»ÊÇtrue,½«Ìø³ö×îÖÕÑ­»·
+			//è·³å‡ºå¤§å¾ªç¯çš„key
+			//å¦‚æœåœ¨ä¸€æ¬¡éå†åéƒ½å®Œæˆäº†æ·»åŠ åˆ™complete_allä»ç„¶æ˜¯true,å°†è·³å‡ºæœ€ç»ˆå¾ªç¯
 			complete_all = true;
 			done = true;
 			it = courses.begin();
@@ -233,29 +233,29 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 				}
 				unsigned short start_week = it->getClassroomAndTime().getTime().getStartWeek();
 				unsigned short end_week = it->getClassroomAndTime().getTime().getEndWeek();
-				//Èç¹ûÒÑÅäÖÃ¿Î³ÌÊı²»×ãÃ¿ÖÜ¿ÎÊ±,ÔòÌí¼Ó
+				//å¦‚æœå·²é…ç½®è¯¾ç¨‹æ•°ä¸è¶³æ¯å‘¨è¯¾æ—¶,åˆ™æ·»åŠ 
 				if (it->getClassroomAndTime().getTime().getWeeklyLessons().size() < it->getSubject().getWeeklyLessonNum()) {
-					//Ö»ÒªÓĞÒ»¸ö»¹Ã»Íê³É,Ôòfalse;
+					//åªè¦æœ‰ä¸€ä¸ªè¿˜æ²¡å®Œæˆ,åˆ™false;
 					complete_all = false;
-					//¸ù¾İÒÑÓĞµÄ½ÌÊÒÑ°ÕÒºÏÊÊµÄÊ±¼ä
+					//æ ¹æ®å·²æœ‰çš„æ•™å®¤å¯»æ‰¾åˆé€‚çš„æ—¶é—´
 					for (WeeklyLesson weeklyTime = WeeklyLesson::firstLesson(); weeklyTime <= WeeklyLesson::lastLesson(); ++weeklyTime) {
 						vector<course>::iterator it_temp = courses.begin();
 						for (; it_temp < courses.end(); ++it_temp) {
 							if (it_temp->getClassroomAndTime().getTime().isConflict(myTime(static_cast<unsigned short>(start_week),
 								static_cast<unsigned short>(end_week),
 								vector<WeeklyLesson>()), weeklyTime) && (it_temp->getTeacher() == it->getTeacher() || intersect_vector<myClass>(it_temp->getClasses(), it->getClasses()))) {
-								//Èç¹û±éÀúµ½×îºóÒ»¸öÁË,ÔòÖ¤Ã÷Õâ¸öÎŞ·¨Íê³É²åÈë
+								//å¦‚æœéå†åˆ°æœ€åä¸€ä¸ªäº†,åˆ™è¯æ˜è¿™ä¸ªæ— æ³•å®Œæˆæ’å…¥
 								if (weeklyTime == WeeklyLesson::lastLesson()) {
-									//É¾³ıÏÈÇ°ÒÑ¾­²åÈëµÄÊı¾İ
+									//åˆ é™¤å…ˆå‰å·²ç»æ’å…¥çš„æ•°æ®
 									it->set_room_time(classroomAndTime());
 								}
 								break;
 							}
 						}
 						if (it_temp == courses.end()) {
-							//Á½¸ö¶¼Òª¼Ó,ÒòÎªÈç¹ûÒªÖØÖÃÑ­»·µÄ»°»¹ĞèÒªcompleteCourseµÄÊı¾İ±£³Ö×îĞÂ
+							//ä¸¤ä¸ªéƒ½è¦åŠ ,å› ä¸ºå¦‚æœè¦é‡ç½®å¾ªç¯çš„è¯è¿˜éœ€è¦completeCourseçš„æ•°æ®ä¿æŒæœ€æ–°
 							it->addClassTimeWeekly(weeklyTime);
-							//Èç¹û»¹ÓĞĞèÒªÌí¼ÓµÄ¾ÍÉèÖÃÎªfalse,ÈÃÑ­»·¼ÌĞø,ÖªµÀÒ»´ÎÑ­»·¹ıºó²»ÔÙÓĞĞèÒªÌí¼ÓµÄ»òÕß²»ÄÜÌí¼ÓµÄÎªÖ¹
+							//å¦‚æœè¿˜æœ‰éœ€è¦æ·»åŠ çš„å°±è®¾ç½®ä¸ºfalse,è®©å¾ªç¯ç»§ç»­,çŸ¥é“ä¸€æ¬¡å¾ªç¯è¿‡åä¸å†æœ‰éœ€è¦æ·»åŠ çš„æˆ–è€…ä¸èƒ½æ·»åŠ çš„ä¸ºæ­¢
 							done = false;
 							break;
 						}
@@ -293,11 +293,11 @@ void courseSelectTeacherStrategy::getWeeklyLessonByTeacher(teacher t)
 void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 {
 	this->matrix.clear();
-	/*½«ÏÖÓĞµÄ½ÌÊ¦Ñ§¿ÆºÏÊÊ¶È¼ÓÈë¾ØÕó*/
+	/*å°†ç°æœ‰çš„æ•™å¸ˆå­¦ç§‘åˆé€‚åº¦åŠ å…¥çŸ©é˜µ*/
 	for (teacher t:this->teachers){
 		this->matrix.push_back(t.getSuitableIndex());
 	}
-	/*¸ù¾İÑ§¿ÆµÄÏŞÖÆ°à¼¶ÊıÔÚ¾ØÕóºó¼ÓÉÏÑ§¿ÆÁĞ, ¸ù¾İÈÕ³£¾­Ñé, courseÊÇ°´ÕÕÑ§¿Æ½øĞĞÅÅĞòµÄ, ÒòÎªÁ½¸öcourse,°à¼¶²»Í¬,ÀÏÊ¦²»Í¬,µ«ÊÇsubjectÏàÍ¬,ÄÇÃ´,ÕâÁ©courseÓ¦¸ÃËùÑ¡½ÌÊÒÊÇÏàÁÚµÄ,ÓÉÓÚÖ®ºóÑ¡Ôñ½ÌÊÒÊÇË³ĞòÑ¡ÔñµÄ,ËùÒÔÎÒÃÇĞèÒªË³ĞòÅÅÁĞÏàÍ¬subjectµÄcourse*/
+	/*æ ¹æ®å­¦ç§‘çš„é™åˆ¶ç­çº§æ•°åœ¨çŸ©é˜µååŠ ä¸Šå­¦ç§‘åˆ—, æ ¹æ®æ—¥å¸¸ç»éªŒ, courseæ˜¯æŒ‰ç…§å­¦ç§‘è¿›è¡Œæ’åºçš„, å› ä¸ºä¸¤ä¸ªcourse,ç­çº§ä¸åŒ,è€å¸ˆä¸åŒ,ä½†æ˜¯subjectç›¸åŒ,é‚£ä¹ˆ,è¿™ä¿©courseåº”è¯¥æ‰€é€‰æ•™å®¤æ˜¯ç›¸é‚»çš„,ç”±äºä¹‹åé€‰æ‹©æ•™å®¤æ˜¯é¡ºåºé€‰æ‹©çš„,æ‰€ä»¥æˆ‘ä»¬éœ€è¦é¡ºåºæ’åˆ—ç›¸åŒsubjectçš„course*/
 	vector<subject>::iterator it = subjects.begin();
 	int index = 0;
 	for (int i = 0; it != subjects.end(); ++i, it++) {
@@ -315,14 +315,14 @@ void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 		}
 	}
 #ifdef Test
-	/*´òÓ¡Ò»ÏÂ¾ØÕó*/
-	cout << "³õÊ¼½ÌÊ¦ºÏÊÊ¶È" << endl;
+	/*æ‰“å°ä¸€ä¸‹çŸ©é˜µ*/
+	cout << "åˆå§‹æ•™å¸ˆåˆé€‚åº¦" << endl;
 	index = 0;
-	cout << setw(5) << "½ÌÊ¦Ãû³Æ";
+	cout << setw(5) << "æ•™å¸ˆåç§°";
 	for (int index : matrix[0]) {
-		cout << setw(5) << "Ñ§¿Æ";
+		cout << setw(5) << "å­¦ç§‘";
 	}
-	cout << setw(5) << "½ÌÊ¦¹¤×÷Á¿" << endl;
+	cout << setw(5) << "æ•™å¸ˆå·¥ä½œé‡" << endl;
 	for (vector<int> row : matrix) {
 		cout << setw(5) << this->teachers[index].getTeacherName();
 		for (int col : row) {
@@ -333,10 +333,10 @@ void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 		cout << endl;
 	}
 #endif
-/*µÚÒ»²½,×¼±¸¹¤×÷,Ì°ĞÄÑ¡Ôñ×îÓÅµÄ»®·Ö·½Ê½Ê¹µÃºÏÊÊ¶È×ÜºÍ×î¸ß,²»¿¼ÂÇ½ÌÊ¦ËùÄÜ³ĞÊÜµÄ¹¤×÷Á¿*/
-	/*ÁĞµÄÊıÁ¿*/
+/*ç¬¬ä¸€æ­¥,å‡†å¤‡å·¥ä½œ,è´ªå¿ƒé€‰æ‹©æœ€ä¼˜çš„åˆ’åˆ†æ–¹å¼ä½¿å¾—åˆé€‚åº¦æ€»å’Œæœ€é«˜,ä¸è€ƒè™‘æ•™å¸ˆæ‰€èƒ½æ‰¿å—çš„å·¥ä½œé‡*/
+	/*åˆ—çš„æ•°é‡*/
 	const int col = matrix[0].size();
-	/*ĞĞµÄÊıÁ¿*/
+	/*è¡Œçš„æ•°é‡*/
 	const int row = matrix.size();
 	vector<int> current_workload = vector<int>(row, 0);
 	for (int i = 0; i < col; ++i) {
@@ -349,9 +349,9 @@ void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 			}
 		}
 		/*
-		ÕÒµ½Ã¿ÁĞÖĞµÄ×î´óÖµºó,½«ÆäËûÊı¾İ×ª»¯ÎªÓë×î´óÖµÖ®¼äµÄ²î¾à,×î´óÖµ±ê¼ÇÎªMAX_SELECTED,ÒÔÔÚÓĞ¶à¸ö×î´óÖµÊ±½øĞĞÇø·Ö,²¢½«µ±Ç°Ã¿¸ö½ÌÊ¦µÄ¹¤×÷Á¿´æÈëÊı×éÖĞ
+		æ‰¾åˆ°æ¯åˆ—ä¸­çš„æœ€å¤§å€¼å,å°†å…¶ä»–æ•°æ®è½¬åŒ–ä¸ºä¸æœ€å¤§å€¼ä¹‹é—´çš„å·®è·,æœ€å¤§å€¼æ ‡è®°ä¸ºMAX_SELECTED,ä»¥åœ¨æœ‰å¤šä¸ªæœ€å¤§å€¼æ—¶è¿›è¡ŒåŒºåˆ†,å¹¶å°†å½“å‰æ¯ä¸ªæ•™å¸ˆçš„å·¥ä½œé‡å­˜å…¥æ•°ç»„ä¸­
 		*/
-		/*cout << "×î´óÖµÎªmatrix["<< maxIndex <<"]["<<i<<"]: " <<max<<endl;*/
+		/*cout << "æœ€å¤§å€¼ä¸ºmatrix["<< maxIndex <<"]["<<i<<"]: " <<max<<endl;*/
 		for (int j = 0; j < row; ++j) {
 			if (j != maxIndex) {
 				matrix[j][i] = max - matrix[j][i];
@@ -368,43 +368,43 @@ void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 	for (int i = 0; i < row; ++i) {
 		sum += current_workload[i];
 	}
-	cout << "×Ü¹²ĞèÒª" << sum << "¸ö¿Î³Ì" << endl;
+	cout << "æ€»å…±éœ€è¦" << sum << "ä¸ªè¯¾ç¨‹" << endl;
 #endif
-/*µÚ¶ş²½,¸ù¾İ½ÌÊ¦µÄ¹¤×÷Á¿¶Ô²»ºÏÀíÖ®´¦½øĞĞ×ªÒÆ*/
-	/*½«current_workloadÖĞµÄÊı×Ö×ª»¯Îª²îÖµ,Í¬Ê±ÑéÖ¤½ÌÊ¦µÄ¹¤×÷Á¿´óÓÚËùĞè¹¤×÷Á¿*/
+/*ç¬¬äºŒæ­¥,æ ¹æ®æ•™å¸ˆçš„å·¥ä½œé‡å¯¹ä¸åˆç†ä¹‹å¤„è¿›è¡Œè½¬ç§»*/
+	/*å°†current_workloadä¸­çš„æ•°å­—è½¬åŒ–ä¸ºå·®å€¼,åŒæ—¶éªŒè¯æ•™å¸ˆçš„å·¥ä½œé‡å¤§äºæ‰€éœ€å·¥ä½œé‡*/
 	int teachers_workload_sum = 0;
 	for (int i = 0; i < row; ++i) {
 		current_workload[i] = current_workload[i] - this->teachers[i].getWorkload();
 		teachers_workload_sum += current_workload[i];
 	}
 	if (teachers_workload_sum > 0) {
-		cout << "½ÌÊ¦ÄÜ¹»³ĞÊÜµÄ¹¤×÷Á¿²»×ãÒÔÖ§³Å½ÌÑ§ÈÎÎñ" << endl;
+		cout << "æ•™å¸ˆèƒ½å¤Ÿæ‰¿å—çš„å·¥ä½œé‡ä¸è¶³ä»¥æ”¯æ’‘æ•™å­¦ä»»åŠ¡" << endl;
 		system("pause");
 		exit(0);
 	}
-	/*´òÓ¡Ò»ÏÂ¾ØÕó*/
+	/*æ‰“å°ä¸€ä¸‹çŸ©é˜µ*/
 #ifdef Test
 	int i = -1;
-	cout << "µÚÒ»²½ÓÅ»¯ºó" << endl;
+	cout << "ç¬¬ä¸€æ­¥ä¼˜åŒ–å" << endl;
 	for (vector<int> row : matrix) {
 		for (int col : row) {
 			cout << setw(5) << col;
 		}
-		/*cout << " -1µÄÊıÁ¿: "<< current_workload[++i] << " ÀÏÊ¦ËùÄÜ³ĞÊÜµÄ¹¤×÷Á¿: " <<this->teachers[i].getWorkload() <<endl;*/
-		cout << " Ïà²îµÄ¹¤×÷Á¿: " << current_workload[++i] << " ÀÏÊ¦ËùÄÜ³ĞÊÜµÄ¹¤×÷Á¿: " << this->teachers[i].getWorkload() << endl;
+		/*cout << " -1çš„æ•°é‡: "<< current_workload[++i] << " è€å¸ˆæ‰€èƒ½æ‰¿å—çš„å·¥ä½œé‡: " <<this->teachers[i].getWorkload() <<endl;*/
+		cout << " ç›¸å·®çš„å·¥ä½œé‡: " << current_workload[++i] << " è€å¸ˆæ‰€èƒ½æ‰¿å—çš„å·¥ä½œé‡: " << this->teachers[i].getWorkload() << endl;
 	}
 #endif
-	/*½«ÓÅ»¯ĞòÁĞ°´ÕÕĞèÒªµ÷ÕûÁ¿ÓĞĞ¡µ½´óÅÅÁĞ,ÀÏÊ¦ÖĞĞèÒªµ÷ÕûµÄÊıÁ¿½ÏÉÙÏÈÑ¡)*/
+	/*å°†ä¼˜åŒ–åºåˆ—æŒ‰ç…§éœ€è¦è°ƒæ•´é‡æœ‰å°åˆ°å¤§æ’åˆ—,è€å¸ˆä¸­éœ€è¦è°ƒæ•´çš„æ•°é‡è¾ƒå°‘å…ˆé€‰)*/
 	//vector<int> searching_sequence;
 	//for (int sequence = 0; sequence < current_workload.size(); ++sequence) {
-	//	/*¸ÃÀÏÊ¦¹¤×÷Á¿³¬±ê*/
+	//	/*è¯¥è€å¸ˆå·¥ä½œé‡è¶…æ ‡*/
 	//	if (current_workload[sequence] > 0) {
-	//		/*ËÑË÷ĞòÁĞ»¹Îª¿Õ*/
+	//		/*æœç´¢åºåˆ—è¿˜ä¸ºç©º*/
 	//		if (searching_sequence.empty()) {
 	//			searching_sequence.push_back(sequence);
 	//		}
 	//		else {
-	//			/*±éÀúËÑË÷ĞòÁĞ,²éÕÒ´ı²åÈëÀÏÊ¦µÄÎ»ÖÃ*/
+	//			/*éå†æœç´¢åºåˆ—,æŸ¥æ‰¾å¾…æ’å…¥è€å¸ˆçš„ä½ç½®*/
 	//			for (vector<int>::iterator it = searching_sequence.begin(); it != searching_sequence.end(); ++it) {
 	//				if (current_workload[*it] > current_workload[sequence]) {
 	//					searching_sequence.emplace(it, sequence);
@@ -419,34 +419,34 @@ void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 	//	}
 	//}
 	//if (searching_sequence.empty()) {
-	//	cout << "µ±Ç°¼´Îª×îÓÅ·½°¸" << endl;
+	//	cout << "å½“å‰å³ä¸ºæœ€ä¼˜æ–¹æ¡ˆ" << endl;
 	//	return;
 	//}
 	//for (int i : searching_sequence) {
 	for (int i = 0; i < row; ++i) {
 		if (current_workload[i] > 0) {
-			/*cout << "Ñ°ÕÒµÚ" << i << "¸öÀÏÊ¦µÄ×ª»¯·½°¸" << endl;*/
-			//¹¤×÷Á¿´óÓÚ³ĞÊÜÁ¿
+			/*cout << "å¯»æ‰¾ç¬¬" << i << "ä¸ªè€å¸ˆçš„è½¬åŒ–æ–¹æ¡ˆ" << endl;*/
+			//å·¥ä½œé‡å¤§äºæ‰¿å—é‡
 			/*matrixArray received_array = matrixArray(current_workload[i], current_workload);*/
 
-			/*±ê¼ÇÒ»ÏÂÒÑÑ¡ÔñÁĞ,ÔÚ½ÓÏÂÀ´µÄÑ¡ÔñÖĞÆúÓÃ¸ÃÁĞ*/
+			/*æ ‡è®°ä¸€ä¸‹å·²é€‰æ‹©åˆ—,åœ¨æ¥ä¸‹æ¥çš„é€‰æ‹©ä¸­å¼ƒç”¨è¯¥åˆ—*/
 			vector<int> selected_cols = vector<int>(current_workload[i], -1);
-			/*Ã¿´ÎÏòÍâ´«ËÍÒ»¸ö¹¤×÷,×Ü¹²ĞèÒªµÄ´ÎÊıÎªcurrent_workload[i]´Î,¼´¸ÃÀÏÊ¦³¬Á¿¹¤×÷Á¿*/
+			/*æ¯æ¬¡å‘å¤–ä¼ é€ä¸€ä¸ªå·¥ä½œ,æ€»å…±éœ€è¦çš„æ¬¡æ•°ä¸ºcurrent_workload[i]æ¬¡,å³è¯¥è€å¸ˆè¶…é‡å·¥ä½œé‡*/
 			while (0 < current_workload[i]) {
-				/*ÕÒµ½¿ÉÑ¡·¶Î§ÄÚ¶Ô×ÜºÍÓ°Ïì×îĞ¡µÄ*/
+				/*æ‰¾åˆ°å¯é€‰èŒƒå›´å†…å¯¹æ€»å’Œå½±å“æœ€å°çš„*/
 				int min = INT32_MAX;
 				int min_row = -1;
 				int min_col = -1;
-				/*jÎªÁĞÊı*/
-				/*±éÀú¸ÃÀÏÊ¦µÄÃ¿Ò»ÁĞ*/
+				/*jä¸ºåˆ—æ•°*/
+				/*éå†è¯¥è€å¸ˆçš„æ¯ä¸€åˆ—*/
 				for (int j = 0; j < col; ++j) {
-					/*µ±Ç°ÁĞÎªÔ­À´ËùÑ¡·½°¸,ÄÇÃ´´ıÑ¡·½°¸Ò²¿Ï¶¨ÊÇÔÚÕâÒ»ĞĞ,ÕâÀïj×îÖØÒª*/
+					/*å½“å‰åˆ—ä¸ºåŸæ¥æ‰€é€‰æ–¹æ¡ˆ,é‚£ä¹ˆå¾…é€‰æ–¹æ¡ˆä¹Ÿè‚¯å®šæ˜¯åœ¨è¿™ä¸€è¡Œ,è¿™é‡Œjæœ€é‡è¦*/
 					if (matrix[i][j] == MAX_SELECTED) {
 						for (int n = 0; n < row; ++n) {
 							/*
-							µÚÒ»¸öÌõ¼ş:´ıÑ¡ÀÏÊ¦»¹ÄÜ³Ğµ£¹¤×÷;
-							µÚ¶ş¸öÌõ¼ş:´ıÑ¡·½°¸±Èµ±Ç°×îÓÅ(min)¸üÓÅ
-							µÚÈı¸öÌõ¼ş:´ıÑ¡·½°¸Ö®Ç°Ã»ÓĞÑ¡Ôñ¹ıÍ¬Ò»ÁĞµÄ·½°¸,(Èç¹ûÒÑ¾­Ñ¡¹ı¸ÃÁĞµÄ,ÄÇÃ´ÕâÒ»ÁĞ×Ô¶¯È«²¿·ÅÆú)
+							ç¬¬ä¸€ä¸ªæ¡ä»¶:å¾…é€‰è€å¸ˆè¿˜èƒ½æ‰¿æ‹…å·¥ä½œ;
+							ç¬¬äºŒä¸ªæ¡ä»¶:å¾…é€‰æ–¹æ¡ˆæ¯”å½“å‰æœ€ä¼˜(min)æ›´ä¼˜
+							ç¬¬ä¸‰ä¸ªæ¡ä»¶:å¾…é€‰æ–¹æ¡ˆä¹‹å‰æ²¡æœ‰é€‰æ‹©è¿‡åŒä¸€åˆ—çš„æ–¹æ¡ˆ,(å¦‚æœå·²ç»é€‰è¿‡è¯¥åˆ—çš„,é‚£ä¹ˆè¿™ä¸€åˆ—è‡ªåŠ¨å…¨éƒ¨æ”¾å¼ƒ)
 							*/
 							if (current_workload[n] < 0 && matrix[n][j] < min && !in_vector(selected_cols, j)) {
 								min = matrix[n][j];
@@ -457,7 +457,7 @@ void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 						}
 					}
 				}
-				//cout << "ÕÒµ½µÄ×îĞ¡µÄ·ûºÏµÄÖµ: " << min << "Î»ÖÃÊÇ[" << min_row << "][" << min_col << "]" << endl;
+				//cout << "æ‰¾åˆ°çš„æœ€å°çš„ç¬¦åˆçš„å€¼: " << min << "ä½ç½®æ˜¯[" << min_row << "][" << min_col << "]" << endl;
 				selected_cols[current_workload[i] - 1] = min_col;
 				++current_workload[min_row];
 				--current_workload[i];
@@ -465,46 +465,46 @@ void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 			}
 
 			/*cout << "-----------------------" << endl;
-			cout << "ÏÖÔÚÊÇµÚ" << i << "ĞĞ:"<<endl;
+			cout << "ç°åœ¨æ˜¯ç¬¬" << i << "è¡Œ:"<<endl;
 			for (auto instance : received_array.getInfo()) {
-				cout << "½«ÒªÌæ»»" << instance.x << "," << instance.y << "Î»ÖÃ" << endl;
+				cout << "å°†è¦æ›¿æ¢" << instance.x << "," << instance.y << "ä½ç½®" << endl;
 			}*/
 		}
 	}
 	i = -1;
-	cout << "µÚ¶ş´ÎÓÅ»¯ºó" << endl;
+	cout << "ç¬¬äºŒæ¬¡ä¼˜åŒ–å" << endl;
 	for (vector<int> row : matrix) {
 		for (int col : row) {
 			cout << setw(5) << col;
 		}
-		/*cout << " -1µÄÊıÁ¿: "<< current_workload[++i] << " ÀÏÊ¦ËùÄÜ³ĞÊÜµÄ¹¤×÷Á¿: " <<this->teachers[i].getWorkload() <<endl;*/
-		cout << " Ïà²îµÄ¹¤×÷Á¿: " << current_workload[++i] << " ÀÏÊ¦ËùÄÜ³ĞÊÜµÄ¹¤×÷Á¿: " << this->teachers[i].getWorkload() << endl;
+		/*cout << " -1çš„æ•°é‡: "<< current_workload[++i] << " è€å¸ˆæ‰€èƒ½æ‰¿å—çš„å·¥ä½œé‡: " <<this->teachers[i].getWorkload() <<endl;*/
+		cout << " ç›¸å·®çš„å·¥ä½œé‡: " << current_workload[++i] << " è€å¸ˆæ‰€èƒ½æ‰¿å—çš„å·¥ä½œé‡: " << this->teachers[i].getWorkload() << endl;
 	}
-/*³¢ÊÔÓÅ»¯*/
+/*å°è¯•ä¼˜åŒ–*/
 	bool flag;
 	do {
 		flag = false;
 		for (int i = 0; i < row; ++i) {
 			for (int j = 0; j < col; ++j) {
-				/*Èç¹ûµ±Ç°Êı×Ö(matrix[i][j])Îª¸ºÊı(¿ÉÒÔ³¢ÊÔÓÅ»¯)²¢ÇÒ²»ÊÇÒÑÑ¡·½°¸, matrix[i][j]Îª±¸Ñ¡·½°¸*/
+				/*å¦‚æœå½“å‰æ•°å­—(matrix[i][j])ä¸ºè´Ÿæ•°(å¯ä»¥å°è¯•ä¼˜åŒ–)å¹¶ä¸”ä¸æ˜¯å·²é€‰æ–¹æ¡ˆ, matrix[i][j]ä¸ºå¤‡é€‰æ–¹æ¡ˆ*/
 				if (matrix[i][j] < 0 && matrix[i][j] != MAX_SELECTED) {
-					/*ÕÒµ½ÕâÒ»ÁĞµÄÒÑÑ¡·½°¸*/
+					/*æ‰¾åˆ°è¿™ä¸€åˆ—çš„å·²é€‰æ–¹æ¡ˆ*/
 					int selected_row = 0;
 					for (; selected_row < row; ++selected_row) {
 						if (matrix[selected_row][j] == MAX_SELECTED) {
 							break;
 						}
 					}
-					/*Õâ¸öÊ±ºòselected_rowÒÑ¾­ÊÇµ±Ç°ÁĞËùÑ¡ÁË*/
+					/*è¿™ä¸ªæ—¶å€™selected_rowå·²ç»æ˜¯å½“å‰åˆ—æ‰€é€‰äº†*/
 					if (current_workload[i] < 0) {
-						//±¸Ñ¡·½°¸ÄÜ¹»Ö±½Ó×ªÈÃ,²»ĞèÒª½»»»·½°¸
+						//å¤‡é€‰æ–¹æ¡ˆèƒ½å¤Ÿç›´æ¥è½¬è®©,ä¸éœ€è¦äº¤æ¢æ–¹æ¡ˆ
 						change_col(i, j, matrix);
 						++current_workload[selected_row];
 						--current_workload[i];
 						flag = true;
 						break;
 					}
-					/*±éÀúÕÒµ½Ìæ»»·½°¸ÖĞµÄ×îĞ¡Öµ*/
+					/*éå†æ‰¾åˆ°æ›¿æ¢æ–¹æ¡ˆä¸­çš„æœ€å°å€¼*/
 					int min_changeable = INT32_MAX;
 					int min_changeable_col = 0;
 					for (int m = 0; m < col; ++m) {
@@ -515,7 +515,7 @@ void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 							}
 						}
 					}
-					/*±È½Ï½»»»µÄ·½°¸ÊÇ·ñÊ¹µÃ×éºÏ¸ü¼ÓºÏÀí*/
+					/*æ¯”è¾ƒäº¤æ¢çš„æ–¹æ¡ˆæ˜¯å¦ä½¿å¾—ç»„åˆæ›´åŠ åˆç†*/
 					if (-matrix[i][j] > min_changeable) {
 						change_col(j, i, matrix);
 						change_col(min_changeable_col, selected_row, matrix);
@@ -530,39 +530,39 @@ void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 	//	for (int col : row) {
 	//		cout << setw(5) << col;
 	//	}
-	//	/*cout << " -1µÄÊıÁ¿: "<< current_workload[++i] << " ÀÏÊ¦ËùÄÜ³ĞÊÜµÄ¹¤×÷Á¿: " <<this->teachers[i].getWorkload() <<endl;*/
-	//	cout << " Ïà²îµÄ¹¤×÷Á¿: " << current_workload[++i] << " ÀÏÊ¦ËùÄÜ³ĞÊÜµÄ¹¤×÷Á¿: " << this->teachers[i].getWorkload() << endl;
+	//	/*cout << " -1çš„æ•°é‡: "<< current_workload[++i] << " è€å¸ˆæ‰€èƒ½æ‰¿å—çš„å·¥ä½œé‡: " <<this->teachers[i].getWorkload() <<endl;*/
+	//	cout << " ç›¸å·®çš„å·¥ä½œé‡: " << current_workload[++i] << " è€å¸ˆæ‰€èƒ½æ‰¿å—çš„å·¥ä½œé‡: " << this->teachers[i].getWorkload() << endl;
 	//}
-/*×îºó*/
-	/*·µ»ØËùÑ¡µÄÀÏÊ¦*/
+/*æœ€å*/
+	/*è¿”å›æ‰€é€‰çš„è€å¸ˆ*/
 
 
-	///*´òÓ¡Ò»ÏÂ¾ØÕó*/
+	///*æ‰“å°ä¸€ä¸‹çŸ©é˜µ*/
 #ifdef Test
 	i = -1;
-	cout << "µÚÈı²½ÓÅ»¯ºó" << endl;
+	cout << "ç¬¬ä¸‰æ­¥ä¼˜åŒ–å" << endl;
 	for (vector<int> row : matrix) {
 		for (int col : row) {
 			cout << setw(5) << col;
 		}
-		/*cout << " -1µÄÊıÁ¿: "<< current_workload[++i] << " ÀÏÊ¦ËùÄÜ³ĞÊÜµÄ¹¤×÷Á¿: " <<this->teachers[i].getWorkload() <<endl;*/
-		cout << " Ïà²îµÄ¹¤×÷Á¿: "<< current_workload[++i] << " ÀÏÊ¦ËùÄÜ³ĞÊÜµÄ¹¤×÷Á¿: " <<this->teachers[i].getWorkload() <<endl;
+		/*cout << " -1çš„æ•°é‡: "<< current_workload[++i] << " è€å¸ˆæ‰€èƒ½æ‰¿å—çš„å·¥ä½œé‡: " <<this->teachers[i].getWorkload() <<endl;*/
+		cout << " ç›¸å·®çš„å·¥ä½œé‡: "<< current_workload[++i] << " è€å¸ˆæ‰€èƒ½æ‰¿å—çš„å·¥ä½œé‡: " <<this->teachers[i].getWorkload() <<endl;
 	}
 #endif
 }
 
-/* ²»»áĞŞ¸ÄÔ­ÓĞµÄsubject,´«»ØµÄÊı¾İÊÇ¸öĞŞ¸ÄºóµÄ¸±±¾ */
-/* ¹¦ÄÜÊÇ */
+/* ä¸ä¼šä¿®æ”¹åŸæœ‰çš„subject,ä¼ å›çš„æ•°æ®æ˜¯ä¸ªä¿®æ”¹åçš„å‰¯æœ¬ */
+/* åŠŸèƒ½æ˜¯ */
 vector<subject> courseSelectTeacherStrategy::changeSubjects(vector<subject> subjects)
 {
 	int classNum = this->classes.size();
 	for (vector<subject>::iterator it = subjects.begin(); it != subjects.end(); it++) {
-		/*ÏòÉÏÈ¡Õû*/
+		/*å‘ä¸Šå–æ•´*/
 		/*cout << classNum << " : " << it->getWorkload()<<endl;*/
 		it->setWorkload((classNum - 1) / it->getWorkload() + 1);
 	}
-	/*´òÓ¡Ò»ÏÂ*/
-	/*cout << "µ÷Õûºó:" << endl;
+	/*æ‰“å°ä¸€ä¸‹*/
+	/*cout << "è°ƒæ•´å:" << endl;
 	for (auto subject: subjects) {
 		cout << subject.getName() << " : "<< subject.getWorkload() << endl;
 	}*/

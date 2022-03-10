@@ -5,27 +5,27 @@
 class classroomAndTime
 {
 public:
-	/*»ñÈ¡È«²¿ĞÅÏ¢*/
+	/*è·å–å…¨éƒ¨ä¿¡æ¯*/
 	string getInfo();
-	/*ÊÇ·ñ³åÍ»*/
+	/*æ˜¯å¦å†²çª*/
 	bool isConflict(const classroomAndTime& other_one, WeeklyLesson weeklyLesson);
-	/*¹¹Ôìº¯Êı*/
+	/*æ„é€ å‡½æ•°*/
 	classroomAndTime(classroom room, myTime time): room (room), time(time){};
 	classroomAndTime() {};
-	/*»ñÈ¡Ê±¼ä*/
+	/*è·å–æ—¶é—´*/
 	myTime getTime()const;
-	/*ÉèÖÃ½ÌÊÒ*/
+	/*è®¾ç½®æ•™å®¤*/
 	void setClassroom(classroom room);
-	/*ÉèÖÃÊ±¼ä*/
+	/*è®¾ç½®æ—¶é—´*/
 	void setTime(myTime time);
-	/*Ìí¼ÓÃ¿ÖÜÉÏ¿ÎÊ±¼ä*/
+	/*æ·»åŠ æ¯å‘¨ä¸Šè¯¾æ—¶é—´*/
 	void addClassTimeWeekly(WeeklyLesson ls);
-	/*ÅĞ¶ÏÊÇ·ñÎª¿Õ*/
+	/*åˆ¤æ–­æ˜¯å¦ä¸ºç©º*/
 	bool isEmpty();
 private:
-	/*½ÌÊÒ,Èç¹ûÓĞ¶à½Ú,½ÌÊÒÒ²±ØĞëÊÇÍ¬Ò»¸ö*/
+	/*æ•™å®¤,å¦‚æœæœ‰å¤šèŠ‚,æ•™å®¤ä¹Ÿå¿…é¡»æ˜¯åŒä¸€ä¸ª*/
 	classroom room;
-	/*Ê±¼ä*/
+	/*æ—¶é—´*/
 	myTime time;
 };
 

@@ -7,39 +7,39 @@ bool teacher::operator==(const teacher & other_one)
 	return this->getTeacherID() == other_one.getTeacherID();
 }
 
-/*½ÌÊ¦ÀàµÄÊµÏÖ·½·¨*/
+/*æ•™å¸ˆç±»çš„å®ç°æ–¹æ³•*/
 string teacher::getInfo() {
 	string result;
-	result = "½ÌÊ¦id: " + to_string(this->teacher_id) + " ½ÌÊ¦Ãû³Æ: " + this->teacher_name + "\n";
+	result = "æ•™å¸ˆid: " + to_string(this->teacher_id) + " æ•™å¸ˆåç§°: " + this->teacher_name + "\n";
 	return result;
 }
 
 
-//todo ÊäÈë¹æ·¶´¦Àí
-/*ÉèÖÃ½ÌÊ¦ÀàµÄÑ§¿ÆºÏÊÊ¶È*/
+//todo è¾“å…¥è§„èŒƒå¤„ç†
+/*è®¾ç½®æ•™å¸ˆç±»çš„å­¦ç§‘åˆé€‚åº¦*/
 void teacher::setSuitableIndex(vector<subject> subjects) {
-	cout << "ÏÂÃæ½«½øĞĞ" + this->teacher_name + "µÄÑ§¿ÆºÏÊÊ¶ÈÉèÖÃ: "<< endl;
-	/*Çå³ıÏÖÓĞµÄÊı¾İ*/
+	cout << "ä¸‹é¢å°†è¿›è¡Œ" + this->teacher_name + "çš„å­¦ç§‘åˆé€‚åº¦è®¾ç½®: "<< endl;
+	/*æ¸…é™¤ç°æœ‰çš„æ•°æ®*/
 	this->subjectSuitableIndex.clear();
 	for (auto subject : subjects) {
-		cout << "ÇëÊäÈë" + subject.getName() << "µÄºÏÊÊ¶È:";
+		cout << "è¯·è¾“å…¥" + subject.getName() << "çš„åˆé€‚åº¦:";
 		int index;
 		cin >> index;
 		this->subjectSuitableIndex.push_back(index);
 	};
-	/*´òÓ¡½á¹û*/
+	/*æ‰“å°ç»“æœ*/
 	this->printIndex(subjects);
 }
 
 
-/*Ö±½ÓÊ¹ÓÃÏòÁ¿Ìæ»»ÊµÀıÖĞµÄÏòÁ¿*/
+/*ç›´æ¥ä½¿ç”¨å‘é‡æ›¿æ¢å®ä¾‹ä¸­çš„å‘é‡*/
 void teacher::setSuitableIndex(int length, vector<int> index) {
 	if (index.size() != length) {
-		cerr << "ÊäÈëµÄ³¤¶ÈÓĞÎó!\n";
+		cerr << "è¾“å…¥çš„é•¿åº¦æœ‰è¯¯!\n";
 	}else{ this->subjectSuitableIndex = index; }
 }
 
-/*´òÓ¡Ñ§¿ÆºÏÊÊ¶È*/
+/*æ‰“å°å­¦ç§‘åˆé€‚åº¦*/
 void teacher::printIndex(vector<subject> subjects) {
 	for (vector<subject>::iterator it = subjects.begin(); it != subjects.end(); it++) {
 		cout << setw(10) << it->getName();
@@ -51,7 +51,7 @@ void teacher::printIndex(vector<subject> subjects) {
 	cout << endl;
 }
 
-/*»ñÈ¡Ñ§¿ÆºÏÊÊ¶È*/
+/*è·å–å­¦ç§‘åˆé€‚åº¦*/
 vector<int> teacher::getSuitableIndex()const {
 	return this->subjectSuitableIndex;
 }

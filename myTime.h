@@ -12,38 +12,38 @@ enum Week {
 	Sat,
 	Sun
 };
-/*Ã¿ÌìµÄ¿Î³Ì*/
+/*æ¯å¤©çš„è¯¾ç¨‹*/
 enum DailyLesson {
-	//ÉÏÎçµÚÒ»¶ş½Ú
+	//ä¸Šåˆç¬¬ä¸€äºŒèŠ‚
 	first,
-	//ÉÏÎçµÚ¶şÈı½Ú
+	//ä¸Šåˆç¬¬äºŒä¸‰èŠ‚
 	second,
-	//ÏÂÎçÒ»¶ş½Ú
+	//ä¸‹åˆä¸€äºŒèŠ‚
 	third,
-	//ÏÂÎçÈıËÄ½Ú
+	//ä¸‹åˆä¸‰å››èŠ‚
 	forth
 };
 
 class WeeklyLesson {
 public:
-	/*·µ»Ø¸Ã½Ú¿Î³Ì¶ÔÓ¦µÄÊı×Ö,Êı×Ö·¶Î§Îª0-27(°üÀ¨ÖÜÁùÖÜÄ©µÄÇé¿ö)*/
+	/*è¿”å›è¯¥èŠ‚è¯¾ç¨‹å¯¹åº”çš„æ•°å­—,æ•°å­—èŒƒå›´ä¸º0-27(åŒ…æ‹¬å‘¨å…­å‘¨æœ«çš„æƒ…å†µ)*/
 	int castToInt();
 	bool operator == (const WeeklyLesson& other_one);
 	bool operator < (const WeeklyLesson& other_one);
 	bool operator <= (const WeeklyLesson& other_one);
-	/*·µ»ØÒ»¸öÃ¿ÖÜµÚÒ»½Ú¿Î³ÌµÄÊ±¼ä*/
+	/*è¿”å›ä¸€ä¸ªæ¯å‘¨ç¬¬ä¸€èŠ‚è¯¾ç¨‹çš„æ—¶é—´*/
 	static WeeklyLesson firstLesson();
-	/*·µ»ØÒ»¸öÖĞ¼äµÄÊ±¼ä*/
+	/*è¿”å›ä¸€ä¸ªä¸­é—´çš„æ—¶é—´*/
 	static WeeklyLesson middleLesson();
-	/*·µ»ØÒ»¸ö½áÎ²µÄÊ±¼ä,Ä¬ÈÏÎªĞÇÆÚÎåµÚËÄ½Ú,Èç¹ûĞèÒª¼ÆËãÖÜÁùÖÜÄ©ÔòÓ¦¸ÃÎªÖÜÄ©µÚËÄ½Ú*/
+	/*è¿”å›ä¸€ä¸ªç»“å°¾çš„æ—¶é—´,é»˜è®¤ä¸ºæ˜ŸæœŸäº”ç¬¬å››èŠ‚,å¦‚æœéœ€è¦è®¡ç®—å‘¨å…­å‘¨æœ«åˆ™åº”è¯¥ä¸ºå‘¨æœ«ç¬¬å››èŠ‚*/
 	static WeeklyLesson lastLesson();
-	/*·µ»ØĞÅÏ¢*/
+	/*è¿”å›ä¿¡æ¯*/
 	string getInfo();
-	/*¿Î³ÌÏòºóÍÆÒÆ*/
+	/*è¯¾ç¨‹å‘åæ¨ç§»*/
 	WeeklyLesson operator ++ ();
-	/*Ä¬ÈÏ¹¹Ôìº¯Êı*/
+	/*é»˜è®¤æ„é€ å‡½æ•°*/
 	WeeklyLesson() {};
-	/*ÓĞ²Î¹¹Ôìº¯Êı*/
+	/*æœ‰å‚æ„é€ å‡½æ•°*/
 	WeeklyLesson(Week week, DailyLesson dailyLesson): week(week), dailyLesson(dailyLesson) {};
 private:
 	friend class myTime;
@@ -61,30 +61,30 @@ public:
 class myTime
 {
 public:
-	/*¹¹Ôìº¯Êı,°üº¬³õÊ¼»¯ÁĞ±í*/
+	/*æ„é€ å‡½æ•°,åŒ…å«åˆå§‹åŒ–åˆ—è¡¨*/
 	myTime(unsigned short startWeek, unsigned short endWeek, vector<WeeklyLesson> weeklyLessons) : startWeek(startWeek), endWeek(endWeek), weeklyLessons(weeklyLessons) {};
 	myTime(unsigned short startWeek, unsigned short endWeek) : startWeek(startWeek), endWeek(endWeek) {};
 	myTime() {};
-	/*¼ì²éÊ±¼äÊÇ·ñ³åÍ»*/
+	/*æ£€æŸ¥æ—¶é—´æ˜¯å¦å†²çª*/
 	bool isConflict(const myTime& other_time, WeeklyLesson weeklyLesson);
-	/*»ñÈ¡¿ªÊ¼ÖÜ*/
+	/*è·å–å¼€å§‹å‘¨*/
 	unsigned short getStartWeek();
-	/*»ñÈ¡½áÊøÖÜ*/
+	/*è·å–ç»“æŸå‘¨*/
 	unsigned short getEndWeek();
-	/*»ñÈ¡Ã¿ÖÜ¿Î³Ì¶ÔÓ¦Ê±¼ä*/
+	/*è·å–æ¯å‘¨è¯¾ç¨‹å¯¹åº”æ—¶é—´*/
 	vector<WeeklyLesson> getWeeklyLessons();
-	/*ÉèÖÃÃ¿ÖÜ¿Î³Ì¶ÔÓ¦Ê±¼ä*/
+	/*è®¾ç½®æ¯å‘¨è¯¾ç¨‹å¯¹åº”æ—¶é—´*/
 	void setWeeklyLessons(vector<WeeklyLesson> ls);
 	void setWeeklyLessons(int i, WeeklyLesson ls);
-	/*Ìí¼ÓÃ¿ÖÜ¿Î³ÌÊ±¼ä*/
+	/*æ·»åŠ æ¯å‘¨è¯¾ç¨‹æ—¶é—´*/
 	void addWeeklyLessons(WeeklyLesson lesson);
 private:
-	/*ÖÜµÄÏŞ¶¨·¶Î§Îª1-20*/
-	/*¿ªÊ¼ÖÜ*/
+	/*å‘¨çš„é™å®šèŒƒå›´ä¸º1-20*/
+	/*å¼€å§‹å‘¨*/
 	unsigned short startWeek;
-	/*½áÊøÖÜ*/
+	/*ç»“æŸå‘¨*/
 	unsigned short endWeek;
-	/*Ã¿ÖÜ¿Î³ÌµÄ¶ÔÓ¦Ê±¼ä*/
+	/*æ¯å‘¨è¯¾ç¨‹çš„å¯¹åº”æ—¶é—´*/
 	vector<WeeklyLesson> weeklyLessons;
 };
 

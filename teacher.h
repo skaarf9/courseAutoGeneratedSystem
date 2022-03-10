@@ -6,34 +6,34 @@
 #include"subject.h"
 using namespace std;
 
-/*½ÌÊ¦Àà*/
+/*æ•™å¸ˆç±»*/
 class teacher {
 public:
-	/*ÖØÔØ == ÔËËã·û*/
+	/*é‡è½½ == è¿ç®—ç¬¦*/
 	bool operator == (const teacher& other_one);
 	string getInfo();
-	/*¹¹Ôìº¯Êı*/
+	/*æ„é€ å‡½æ•°*/
 	teacher(string name, int id, int workload):teacher_name(name), teacher_id(id), workload(workload){};
-	/*Éè¶¨½ÌÊ¦µÄÑ§¿ÆÊÊºÏ¶È*/
+	/*è®¾å®šæ•™å¸ˆçš„å­¦ç§‘é€‚åˆåº¦*/
 	void setSuitableIndex(vector<subject> subjects);
 	void setSuitableIndex(int length, vector<int> index);
-	/*´òÓ¡Ñ§¿ÆºÏÊÊ¶È*/
+	/*æ‰“å°å­¦ç§‘åˆé€‚åº¦*/
 	void printIndex(vector<subject> subjects);
-	/*»ñÈ¡Ñ§¿ÆºÏÊÊ¶ÈÏòÁ¿*/
+	/*è·å–å­¦ç§‘åˆé€‚åº¦å‘é‡*/
 	vector<int> getSuitableIndex()const;
-	/*»ñÈ¡¹¤×÷Á¿³ĞÊÜ¶È*/
+	/*è·å–å·¥ä½œé‡æ‰¿å—åº¦*/
 	int getWorkload() const;
-	/*»ñÈ¡½ÌÊ¦id*/
+	/*è·å–æ•™å¸ˆid*/
 	int getTeacherID()const;
-	/*»ñÈ¡½ÌÊ¦Ãû³Æ*/
+	/*è·å–æ•™å¸ˆåç§°*/
 	string getTeacherName()const;
 private:
-	/*½ÌÊ¦Ãû³Æ*/
+	/*æ•™å¸ˆåç§°*/
 	string teacher_name;
-	/*½ÌÊ¦id*/
+	/*æ•™å¸ˆid*/
 	int teacher_id;
-	/*½ÌÊ¦Ïà¶ÔÓÚÑ§¿ÆµÄºÏÊÊ³Ì¶È*/
+	/*æ•™å¸ˆç›¸å¯¹äºå­¦ç§‘çš„åˆé€‚ç¨‹åº¦*/
 	vector<int> subjectSuitableIndex;
-	/*¹¤×÷Á¿:ÄÜ¹»¸ºÔğµÄ×î´óÊıÁ¿course*/
+	/*å·¥ä½œé‡:èƒ½å¤Ÿè´Ÿè´£çš„æœ€å¤§æ•°é‡course*/
 	int workload;
 };

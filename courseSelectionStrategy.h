@@ -6,17 +6,17 @@
 class courseSelectTeacherStrategy
 {
 public:
-	/*Îª¿Î³Ì·ÖÅäÀÏÊ¦Óë°à¼¶*/
+	/*ä¸ºè¯¾ç¨‹åˆ†é…è€å¸ˆä¸ç­çº§*/
 	void courseSelectTeacherAndClass();
 
-	/* Îª¿Î³Ì·ÖÅä½ÌÊÒÓëÊ±¼ä */
+	/* ä¸ºè¯¾ç¨‹åˆ†é…æ•™å®¤ä¸æ—¶é—´ */
 	void courseSelectClassroomAndTime();
-	/* ¸ù¾İÍê³ÉµÄÅÅ¿ÎÇé¿ö,´òÓ¡³ö¶ÔÓ¦°à¼¶µÄÃ¿ÖÜ¿Î³ÌĞÅÏ¢ */
+	/* æ ¹æ®å®Œæˆçš„æ’è¯¾æƒ…å†µ,æ‰“å°å‡ºå¯¹åº”ç­çº§çš„æ¯å‘¨è¯¾ç¨‹ä¿¡æ¯ */
 	void getWeeklyLessonByClass(myClass myClass);
 
-	/* ¸ù¾İÍê³ÉµÄÅÅ¿ÎÇé¿ö,´òÓ¡³ö¶ÔÓ¦ÀÏÊ¦µÄÃ¿ÖÜ¿Î³ÌĞÅÏ¢ */
+	/* æ ¹æ®å®Œæˆçš„æ’è¯¾æƒ…å†µ,æ‰“å°å‡ºå¯¹åº”è€å¸ˆçš„æ¯å‘¨è¯¾ç¨‹ä¿¡æ¯ */
 	void getWeeklyLessonByTeacher(teacher t);
-	/*¹¹Ôìº¯Êı*/
+	/*æ„é€ å‡½æ•°*/
 	courseSelectTeacherStrategy(vector<teacher> teachers, vector<subject> subjects, vector<myClass> classes, vector<classroom> rooms) :teachers(teachers), subjects(subjects), classes(classes), rooms(rooms){
 		courseSelectTeacherAndClass();
 		courseSelectClassroomAndTime();
@@ -27,14 +27,14 @@ private:
 	vector<subject> subjects;
 	vector<course> courses;
 	vector<teacher> teachers;
-	/*Ñ¡ÔñÀÏÊ¦Ëã·¨ËùĞèµÄ¾ØÕó*/
+	/*é€‰æ‹©è€å¸ˆç®—æ³•æ‰€éœ€çš„çŸ©é˜µ*/
 	vector<vector<int>> matrix;
-	/*½ÌÊÒ*/
+	/*æ•™å®¤*/
 	vector<classroom> rooms;
 
-	/*³õÊ¼»¯¾ØÕó,´«ÈësubjectsµÄÔ­ÒòÊÇÎÒÃÇĞèÒªÔÚinit_matrixÖĞĞŞ¸ÄsubjectsµÄÊı¾İ,µ«ÊÇÔÚÀàÖĞÎÒÃÇ²»ĞèÒª¸Ä,ËùÒÔ´«Öµ¾ÍºÃÁË*/
+	/*åˆå§‹åŒ–çŸ©é˜µ,ä¼ å…¥subjectsçš„åŸå› æ˜¯æˆ‘ä»¬éœ€è¦åœ¨init_matrixä¸­ä¿®æ”¹subjectsçš„æ•°æ®,ä½†æ˜¯åœ¨ç±»ä¸­æˆ‘ä»¬ä¸éœ€è¦æ”¹,æ‰€ä»¥ä¼ å€¼å°±å¥½äº†*/
 	void init_matrix(vector<subject> subjects);
-	/*×ª»¯Ñ§¿ÆÖĞµÄµ¥Î»¹¤×÷Á¿(Êı×Ö´ú±í°à¼¶ÊıÁ¿)ÎªËùĞè¹¤×÷Á¿(¸ù¾İ°à¼¶ÊıÁ¿×ª»¯ÎªËùĞèÊıÁ¿)*/
+	/*è½¬åŒ–å­¦ç§‘ä¸­çš„å•ä½å·¥ä½œé‡(æ•°å­—ä»£è¡¨ç­çº§æ•°é‡)ä¸ºæ‰€éœ€å·¥ä½œé‡(æ ¹æ®ç­çº§æ•°é‡è½¬åŒ–ä¸ºæ‰€éœ€æ•°é‡)*/
 	vector<subject> changeSubjects(vector<subject> subjects);
 };
 

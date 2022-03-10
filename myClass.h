@@ -2,12 +2,12 @@
 #include<string>
 using namespace std;
 
-/*°à¼¶Àà*/
+/*ç­çº§ç±»*/
 class myClass {
 public:
-	/*»ñÈ¡È«²¿ĞÅÏ¢*/
+	/*è·å–å…¨éƒ¨ä¿¡æ¯*/
 	string getInfo();
-	/*¹¹Ôìº¯Êı*/
+	/*æ„é€ å‡½æ•°*/
 	myClass(int class_id, string name) :class_id(class_id), class_name(name) {};
 	bool operator == (const myClass& other_one);
 private:

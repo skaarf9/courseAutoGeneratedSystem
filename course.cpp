@@ -2,15 +2,15 @@
 
 bool course::operator<(const course & other_one)
 {
-	/*ÈÃcourse´Ó´óµ½Ð¡ÅÅÐò,ÎÒÃÇÐèÒªÏÈÂú×ã´óµÄ¿Î³ÌµÄ½ÌÊÒÑ¡Ôñ,È»ºóÂú×ãÐ¡µÄ*/
+	/*è®©courseä»Žå¤§åˆ°å°æŽ’åº,æˆ‘ä»¬éœ€è¦å…ˆæ»¡è¶³å¤§çš„è¯¾ç¨‹çš„æ•™å®¤é€‰æ‹©,ç„¶åŽæ»¡è¶³å°çš„*/
 	return this->getSubject().getWorkload() > other_one.getSubject().getWorkload();
 }
 
-/*¿Î³ÌÖÐÏÔÊ¾ËùÓÐÐÅÏ¢µÄ·½·¨*/
+/*è¯¾ç¨‹ä¸­æ˜¾ç¤ºæ‰€æœ‰ä¿¡æ¯çš„æ–¹æ³•*/
 string course::getInfo() {
-	/*·Ö¸ô·û*/
+	/*åˆ†éš”ç¬¦*/
 	string result = "----------------------\n";
-	result += this->teacher.getInfo() + this->subject.getInfo() + "¸ºÔðµÄ°à¼¶: \n";
+	result += this->teacher.getInfo() + this->subject.getInfo() + "è´Ÿè´£çš„ç­çº§: \n";
 	for(myClass classInstance : this->classes)
 	{
 		result.append(classInstance.getInfo());

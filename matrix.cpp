@@ -14,34 +14,34 @@ matrix matrixArray::get_max_one()
 
 void matrixArray::insert_one(matrix new_one)
 {
-	/*row¼´ÀÏÊ¦ĞòºÅ*/
+	/*rowå³è€å¸ˆåºå·*/
 	int row = new_one.x;
 	if (this->info.empty()) {
 		this->info.push_back(new_one);
 		++this->workload[row];
-		/*cout << "³õÊ¼»¯" << row << " " << new_one.y <<" : "<<new_one.value<< endl;*/
+		/*cout << "åˆå§‹åŒ–" << row << " " << new_one.y <<" : "<<new_one.value<< endl;*/
 		return;
 	}
 	if (info.size() == this->size && new_one.value > this->get_max_one().value) {
-		/*cout << "Ìø¹ı" << endl;*/
+		/*cout << "è·³è¿‡" << endl;*/
 		return;
 	}
-	/*¸ÃÀÏÊ¦¹¤×÷Á¿»¹Ã»Âú,ÄÜ¹»²åÈë*/
+	/*è¯¥è€å¸ˆå·¥ä½œé‡è¿˜æ²¡æ»¡,èƒ½å¤Ÿæ’å…¥*/
 	if (workload[row] <= 0) {
-		/*Èç¹û¸ÃÀÏÊ¦¹¤×÷¸ÕºÃÂúÁË,ĞèÒªÑéÖ¤new_oneÊÇ·ñ¸üÊÊºÏ*/
-		/*ÕâÀïÑéÖ¤µÄÊÇĞ¡ÓÚ½á¹û¼¯ÖĞºÏÊÊ¶È×î´óÖµ,ÅĞ¶ÏÊÇ·ñĞ¡ÓÚ½á¹û¼¯ÖĞÍ¬Ò»¸öÀÏÊ¦µÄ×î´óÖµ²ÅÕæÕıÄÜ¹»È·¶¨¿ÉĞĞ,ÕâÒ»²½Ö»ÊÇ´ÖÂÔÑéÖ¤*/
+		/*å¦‚æœè¯¥è€å¸ˆå·¥ä½œåˆšå¥½æ»¡äº†,éœ€è¦éªŒè¯new_oneæ˜¯å¦æ›´é€‚åˆ*/
+		/*è¿™é‡ŒéªŒè¯çš„æ˜¯å°äºç»“æœé›†ä¸­åˆé€‚åº¦æœ€å¤§å€¼,åˆ¤æ–­æ˜¯å¦å°äºç»“æœé›†ä¸­åŒä¸€ä¸ªè€å¸ˆçš„æœ€å¤§å€¼æ‰çœŸæ­£èƒ½å¤Ÿç¡®å®šå¯è¡Œ,è¿™ä¸€æ­¥åªæ˜¯ç²—ç•¥éªŒè¯*/
 		if (workload[row] == 0 && new_one.value < this->get_max_one().value) {
 			int max = -1;
 			int max_index = -1;
 			int insert_index = 0;
-			/*»ñÈ¡infoÖĞÍ¬Ò»¸öÀÏÊ¦µÄ×î´óºÏÊÊ¶È*/
+			/*è·å–infoä¸­åŒä¸€ä¸ªè€å¸ˆçš„æœ€å¤§åˆé€‚åº¦*/
 			for (int i = this->info.size() - 1; i >= 0; --i) {
 				if (this->info[i].x == row && this->info[i].value > max) {
 					max_index = i;
 					max = this->info[i].value;
 				}
 			}
-			/*»ñÈ¡new_oneÔÚinfoÖĞµÄÎ»ÖÃ*/
+			/*è·å–new_oneåœ¨infoä¸­çš„ä½ç½®*/
 			for (int i = this->info.size() - 1; i >= 0; --i) {
 				if (new_one.value >= info[i].value) {
 					insert_index = i + 1;
@@ -49,40 +49,40 @@ void matrixArray::insert_one(matrix new_one)
 				}
 			}
 			if (max > new_one.value) {
-				/*É¾³ıÍ¬×éÖĞ×î´óµÄÖµÍ¬Ê±½«ĞÂÖµ²åÈëºÏÊÊÎ»ÖÃ*/
+				/*åˆ é™¤åŒç»„ä¸­æœ€å¤§çš„å€¼åŒæ—¶å°†æ–°å€¼æ’å…¥åˆé€‚ä½ç½®*/
 				this->info.erase(info.begin() + max_index);
 				this->info.emplace(this->info.begin() + insert_index);
 				return;
 			}
 		}
 		else {
-			/*²»ĞèÒª¿¼ÂÇÊÇ·ñÊ¹µÃ½ÓÊÕ¿Î³ÌµÄÀÏÊ¦ÎŞ·¨Ê¤ÈÎ*/
+			/*ä¸éœ€è¦è€ƒè™‘æ˜¯å¦ä½¿å¾—æ¥æ”¶è¯¾ç¨‹çš„è€å¸ˆæ— æ³•èƒœä»»*/
 			for (int i = 0; i < this->info.size();++i) {
 				if (this->info[i].value > new_one.value) {
-					/*Èç¹ûÍ¬Ò»ÁĞÒÑ¾­ÓĞÒ»¸öÁË,²¢ÇÒĞÂÖµ±ÈÍ¬ÁĞµÄÕâ¸öÖµ¸üÓÅ*/
+					/*å¦‚æœåŒä¸€åˆ—å·²ç»æœ‰ä¸€ä¸ªäº†,å¹¶ä¸”æ–°å€¼æ¯”åŒåˆ—çš„è¿™ä¸ªå€¼æ›´ä¼˜*/
 					for (int same_col = 0; same_col < this->info.size(); ++same_col) {
-						/*ÕÒµ½ÁËÍ¬Ò»ÁĞµÄ*/
+						/*æ‰¾åˆ°äº†åŒä¸€åˆ—çš„*/
 						if (this->info[same_col].y == new_one.y) {
-							/*¸ÃÊı×Ö±ÈĞÂÖµ´ó,¾Í²åÈë*/
+							/*è¯¥æ•°å­—æ¯”æ–°å€¼å¤§,å°±æ’å…¥*/
 							if (this->info[same_col].value > new_one.value) {
 								--workload[this->info[same_col].x];
 								this->info.erase(this->info.begin() + same_col);
 								break;
 							}
-							/*¸ÃÊı×Ö±ÈĞÂÖµĞ¡,¾ÍÖ±½ÓÅ×Æú*/
+							/*è¯¥æ•°å­—æ¯”æ–°å€¼å°,å°±ç›´æ¥æŠ›å¼ƒ*/
 							else {
 								return;
 							}
 							
 						}
-						/*Ã»ÓĞÍ¬ÁĞµÄÊı¾İ,µ±Ç°µÄsame_colÖ¸ÏòinfoÖĞµÄ×îºóÒ»¸ö*/
+						/*æ²¡æœ‰åŒåˆ—çš„æ•°æ®,å½“å‰çš„same_colæŒ‡å‘infoä¸­çš„æœ€åä¸€ä¸ª*/
 						else if (same_col == this->info.size() - 1) {
-							/*ÅĞ¶ÏinfoÊÇ·ñÂúÁË,¶øÇÒÈ·¶¨ÄÜÖ±½Ó²åÈë,Ã»ÓĞÍ¬ÁĞÊı¾İ*/
+							/*åˆ¤æ–­infoæ˜¯å¦æ»¡äº†,è€Œä¸”ç¡®å®šèƒ½ç›´æ¥æ’å…¥,æ²¡æœ‰åŒåˆ—æ•°æ®*/
 							if (this->info.size() == this->size) {
 								--workload[this->info.back().x];
 								this->info.pop_back();
 							}
-							/*cout << "²åÈëÁË" << row << " " << new_one.y << " : " << new_one.value << endl;*/
+							/*cout << "æ’å…¥äº†" << row << " " << new_one.y << " : " << new_one.value << endl;*/
 							break;
 						}
 					}
@@ -90,7 +90,7 @@ void matrixArray::insert_one(matrix new_one)
 					++workload[row];
 					return;
 				}
-				/*Èç¹û±éÀú½áÊø»¹ÊÇÃ»ÓĞbreak,Ò²¾ÍÊÇËµ½á¹û¼¯ÖĞÃ»ÓĞ±Ènew_one.valueĞ¡µÄ,»¹ĞèÒª¿¼ÂÇÒ»ÖÖÇé¿ö¾ÍÊÇ½á¹û¼¯»¹Ã»Âú*/
+				/*å¦‚æœéå†ç»“æŸè¿˜æ˜¯æ²¡æœ‰break,ä¹Ÿå°±æ˜¯è¯´ç»“æœé›†ä¸­æ²¡æœ‰æ¯”new_one.valueå°çš„,è¿˜éœ€è¦è€ƒè™‘ä¸€ç§æƒ…å†µå°±æ˜¯ç»“æœé›†è¿˜æ²¡æ»¡*/
 				else if (i == this->info.size() - 1 && this->info.size() < this->size) {
 					for (auto i : this->info) {
 						if (i.y == new_one.y) {
@@ -98,7 +98,7 @@ void matrixArray::insert_one(matrix new_one)
 						}
 					}
 					this->info.push_back(new_one);
-					/*cout << "²»×ãÊ±²åÈëÁË" << row << " " << new_one.y << " : " << new_one.value << endl;*/
+					/*cout << "ä¸è¶³æ—¶æ’å…¥äº†" << row << " " << new_one.y << " : " << new_one.value << endl;*/
 					break;
 				}
 			}

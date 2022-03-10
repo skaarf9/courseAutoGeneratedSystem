@@ -2,7 +2,7 @@
 
 string myClass::getInfo() {
 	string result;
-	result = "°à¼¶id: " + to_string(this->class_id) + " °à¼¶Ãû³Æ: " + this->class_name + "\n";
+	result = "ç­çº§id: " + to_string(this->class_id) + " ç­çº§åç§°: " + this->class_name + "\n";
 	return result;
 }
 

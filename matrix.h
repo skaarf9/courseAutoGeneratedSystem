@@ -12,22 +12,22 @@ struct matrix
 
 class matrixArray{
 public:
-	/*»ñÈ¡ÏòÁ¿ÖĞ×îĞ¡µÄÄÇ¸öÔªËØ*/
+	/*è·å–å‘é‡ä¸­æœ€å°çš„é‚£ä¸ªå…ƒç´ */
 	matrix get_min_one();
-	/*»ñÈ¡ÏòÁ¿ÖĞ×î´óµÄÄÇ¸öÔªËØ*/
+	/*è·å–å‘é‡ä¸­æœ€å¤§çš„é‚£ä¸ªå…ƒç´ */
 	matrix get_max_one();
-	/*ÔÚ²»³¬¹ıÉÏÏŞµÄÇé¿öÏÂ²åÈëÔªËØ*/
+	/*åœ¨ä¸è¶…è¿‡ä¸Šé™çš„æƒ…å†µä¸‹æ’å…¥å…ƒç´ */
 	void insert_one(matrix new_one);
 	matrixArray(int size, vector<int> workload):size(size), workload(workload){
 		this->info.reserve(size);
 	}
-	/*»ñÈ¡info*/
+	/*è·å–info*/
 	vector<matrix> getInfo();
 private:
-	/*´¢´æÑ¡Ôñ½á¹ûµÄÏòÁ¿*/
+	/*å‚¨å­˜é€‰æ‹©ç»“æœçš„å‘é‡*/
 	vector<matrix> info;
-	/*ÏŞÖÆÏòÁ¿´óĞ¡,ÖµÓë³¬¶î¹¤×÷Á¿ÏàÍ¬*/
+	/*é™åˆ¶å‘é‡å¤§å°,å€¼ä¸è¶…é¢å·¥ä½œé‡ç›¸åŒ*/
 	int size;
-	/*³¬¶î¹¤×÷Á¿, Îª¸ºÊ±±íÊ¾»¹ÄÜ½ÓÊÜµÄ¹¤×÷Á¿*/
+	/*è¶…é¢å·¥ä½œé‡, ä¸ºè´Ÿæ—¶è¡¨ç¤ºè¿˜èƒ½æ¥å—çš„å·¥ä½œé‡*/
 	vector<int> workload;
 };

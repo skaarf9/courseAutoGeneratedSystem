@@ -2,9 +2,9 @@
 
 bool myTime::isConflict(const myTime & other_time, WeeklyLesson weeklyLesson)
 {
-	/*Èç¹ûAÔÚB½áÊøºó¿ªÊ¼, »òÕßAÔÚB¿ªÊ¼Ç°½áÊø, ÄÇÃ´AÓëB¾Í²»Ïà½», ÎÒÃÇÈ¡·´,¾ÍÊÇAÓëBÏà½»µÄÇé¿ö*/
+	/*å¦‚æœAåœ¨Bç»“æŸåå¼€å§‹, æˆ–è€…Aåœ¨Bå¼€å§‹å‰ç»“æŸ, é‚£ä¹ˆAä¸Bå°±ä¸ç›¸äº¤, æˆ‘ä»¬å–å,å°±æ˜¯Aä¸Bç›¸äº¤çš„æƒ…å†µ*/
 	if (!(this->startWeek > other_time.endWeek || this->endWeek < other_time.startWeek)) {
-		/*±éÀúAÖĞµÄÃ¿ÖÜ¿Î³Ì,Èç¹ûÓëweeklyLessonÖØºÏÄÇÃ´¾Í»á²úÉú³åÍ»*/
+		/*éå†Aä¸­çš„æ¯å‘¨è¯¾ç¨‹,å¦‚æœä¸weeklyLessoné‡åˆé‚£ä¹ˆå°±ä¼šäº§ç”Ÿå†²çª*/
 		for (WeeklyLesson this_one : this->weeklyLessons) {
 			if (this_one == weeklyLesson)
 			{
@@ -85,48 +85,48 @@ string WeeklyLesson::getInfo()
 	string result = string();
 	switch (week) {
 	case Mon:
-		result.append("ĞÇÆÚÒ»");
+		result.append("æ˜ŸæœŸä¸€");
 		break;
 	case Tue:
-		result.append("ĞÇÆÚ¶ş");
+		result.append("æ˜ŸæœŸäºŒ");
 		break;
 	case Wed:
-		result.append("ĞÇÆÚÈı");
+		result.append("æ˜ŸæœŸä¸‰");
 		break;
 	case Thur:
-		result.append("ĞÇÆÚËÄ");
+		result.append("æ˜ŸæœŸå››");
 		break;
 	case Fri:
-		result.append("ĞÇÆÚÎå");
+		result.append("æ˜ŸæœŸäº”");
 		break;
 	case Sat:
-		result.append("ĞÇÆÚÁù");
+		result.append("æ˜ŸæœŸå…­");
 		break;
 	case Sun:
-		result.append("ĞÇÆÚÈÕ");
+		result.append("æ˜ŸæœŸæ—¥");
 		break;
 	default:
 		break;
 	}
-	result.append(" µÚ");
+	result.append(" ç¬¬");
 	switch (dailyLesson)
 	{
 	case first:
-		result.append("Ò»");
+		result.append("ä¸€");
 		break;
 	case second:
-		result.append("¶ş");
+		result.append("äºŒ");
 		break;
 	case third:
-		result.append("Èı");
+		result.append("ä¸‰");
 		break;
 	case forth:
-		result.append("ËÄ");
+		result.append("å››");
 		break;
 	default:
 		break;
 	}
-	result.append("½Ú\n");
+	result.append("èŠ‚\n");
 	return result;
 }
 

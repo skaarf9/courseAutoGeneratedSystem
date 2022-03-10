@@ -3,17 +3,17 @@
 string classroomAndTime::getInfo()
 {
 	string result = string();
-	result.append("教室编号: " + this->room.getName() + " 教室大小: " + to_string(this->room.getCapacity()) + "\n每周课程: \n");
+	result.append("鏁欏缂栧彿: " + this->room.getName() + " 鏁欏澶у皬: " + to_string(this->room.getCapacity()) + "\n姣忓懆璇剧▼: \n");
 	for (WeeklyLesson i : this->time.getWeeklyLessons()) {
 		result.append(i.getInfo());
 	}
-	result.append(to_string(static_cast<int>(this->time.getStartWeek())) + "~" + to_string(static_cast<int>(this->time.getEndWeek())) + "周\n");
+	result.append(to_string(static_cast<int>(this->time.getStartWeek())) + "~" + to_string(static_cast<int>(this->time.getEndWeek())) + "鍛╘n");
 	return result;
 }
 
 bool classroomAndTime::isConflict(const classroomAndTime& other_one, WeeklyLesson weeklyLesson)
 {
-	/*如果教室相同,并且时间相同,才会冲突*/
+	/*濡傛灉鏁欏鐩稿悓,骞朵笖鏃堕棿鐩稿悓,鎵嶄細鍐茬獊*/
 	return this->room == other_one.room && this->time.isConflict(other_one.time, weeklyLesson);
 }
 

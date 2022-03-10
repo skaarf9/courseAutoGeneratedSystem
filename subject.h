@@ -2,38 +2,38 @@
 #include<string>
 using namespace std;
 
-/*Ñ§¿ÆÀà*/
+/*å­¦ç§‘ç±»*/
 class subject
 {
 public:
-	/*»ñÈ¡´òÓ¡ĞÅÏ¢*/
+	/*è·å–æ‰“å°ä¿¡æ¯*/
 	string getInfo();
-	/*¹¹Ôìº¯Êı*/
+	/*æ„é€ å‡½æ•°*/
 	subject(string name, int workload, int subject_id, int duration, int weeklyLessonNum) :name(name), workload(workload), duration(duration), subject_id(subject_id), weeklyLessonNum(weeklyLessonNum){};
-	/*»ñÈ¡µ¥Î»¹¤×÷Á¿*/
+	/*è·å–å•ä½å·¥ä½œé‡*/
 	int getWorkload();
-	/*ÉèÖÃµ¥Î»¹¤×÷Á¿*/
+	/*è®¾ç½®å•ä½å·¥ä½œé‡*/
 	void setWorkload(int workload);
-	/*ÉèÖÃÃ¿ÖÜ¿ÎÊ±*/
+	/*è®¾ç½®æ¯å‘¨è¯¾æ—¶*/
 	void setWeeklyLessonNum(int num);
-	/*»ñÈ¡Ãû³Æ*/
+	/*è·å–åç§°*/
 	string getName();
-	/*»ñÈ¡Ñ§¿Æid*/
+	/*è·å–å­¦ç§‘id*/
 	int getSubjectID();
-	/*»ñÈ¡Ñ§¿Æ×Ü¿ÎÊ±*/
+	/*è·å–å­¦ç§‘æ€»è¯¾æ—¶*/
 	int getDuration();
-	/*»ñÈ¡Ñ§¿ÆÃ¿ÖÜ¿ÎÊ±*/
+	/*è·å–å­¦ç§‘æ¯å‘¨è¯¾æ—¶*/
 	int getWeeklyLessonNum();
 private:
-	/*Ñ§¿Æid*/
+	/*å­¦ç§‘id*/
 	int subject_id;
-	/*Ñ§¿ÆÃû³Æ*/
+	/*å­¦ç§‘åç§°*/
 	string name;
-	/*µ¥Î»¹¤×÷Á¿(µ¥Î»°à)*/
+	/*å•ä½å·¥ä½œé‡(å•ä½ç­)*/
 	int workload;
-	/*Ñ§¿Æ×Ü¿ÎÊ±(µ¥Î»ÈÕ³£Á½½Ú¿Î,Ò»Ìì²»Ëã×ÔÏ°×Ü¹²ÓĞËÄ¿ÎÊ±,ÔçÍíÁ½¸ö)*/
+	/*å­¦ç§‘æ€»è¯¾æ—¶(å•ä½æ—¥å¸¸ä¸¤èŠ‚è¯¾,ä¸€å¤©ä¸ç®—è‡ªä¹ æ€»å…±æœ‰å››è¯¾æ—¶,æ—©æ™šä¸¤ä¸ª)*/
 	int duration;
-	/*Ã¿ÖÜ¿ÎÊ±*/
+	/*æ¯å‘¨è¯¾æ—¶*/
 	int weeklyLessonNum;
 };
 

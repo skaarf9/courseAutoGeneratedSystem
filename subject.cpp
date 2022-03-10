@@ -3,11 +3,11 @@
 string subject::getInfo()
 {
 	string result = string();
-	result.append("Ñ§¿Æid: " + to_string(this->subject_id));
-	result.append(" Ñ§¿ÆÃû³Æ: " + this->name);
-	result.append("\nµ¥Î»¹¤×÷Á¿(¿É½ÓÊÜµÄ°à¼¶ÊýÁ¿) " + to_string(this->workload));
-	result.append("\nÑ§¿Æ¿ÎÊ±: " + to_string(this->duration));
-	result.append("\nÃ¿ÖÜ¿ÎÊ±: " + to_string(this->weeklyLessonNum) + "\n");
+	result.append("å­¦ç§‘id: " + to_string(this->subject_id));
+	result.append(" å­¦ç§‘åç§°: " + this->name);
+	result.append("\nå•ä½å·¥ä½œé‡(å¯æŽ¥å—çš„ç­çº§æ•°é‡) " + to_string(this->workload));
+	result.append("\nå­¦ç§‘è¯¾æ—¶: " + to_string(this->duration));
+	result.append("\næ¯å‘¨è¯¾æ—¶: " + to_string(this->weeklyLessonNum) + "\n");
 	return result;
 }
 
