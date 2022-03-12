@@ -17,16 +17,15 @@
 #include <string>
 #include "classroomAndTime.h"
 #include "teacher.h"
-using namespace std;
 
 class course {
 public:
 	/*重载<符号, 用于比较workload*/
 	bool operator < (const course& other_one);
 	/*获取课程信息*/
-	string getInfo();
+    std::string getInfo();
 	/*构造函数*/
-	course(teacher teacher, subject subject, vector<myClass> cla) :teacher(teacher), subject(subject), classes(cla){};
+    course(teacher teacher, subject subject, std::vector<myClass> cla) :teacher(teacher), subject(subject), classes(cla){};
 	/*获取学科subject*/
 	subject getSubject()const;
 	/*设置时间与教室*/
@@ -36,7 +35,7 @@ public:
 	/*获取老师*/
 	teacher getTeacher();
 	/*获取班级*/
-	vector<myClass> getClasses();
+    std::vector<myClass> getClasses();
 	/*添加一个每周上课时间*/
 	void addClassTimeWeekly(WeeklyLesson ls);
 private:
@@ -45,7 +44,7 @@ private:
 	/*学科id*/
 	subject subject;
 	/*负责的班级*/
-	vector<myClass> classes;
+    std::vector<myClass> classes;
 	/*时间与教室*/
 	classroomAndTime room_time;
 };

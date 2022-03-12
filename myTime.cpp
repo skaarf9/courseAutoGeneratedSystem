@@ -25,12 +25,12 @@ unsigned short myTime::getEndWeek()
 	return this->endWeek;
 }
 
-vector<WeeklyLesson> myTime::getWeeklyLessons()
+std::vector<WeeklyLesson> myTime::getWeeklyLessons()
 {
 	return this->weeklyLessons;
 }
 
-void myTime::setWeeklyLessons(vector<WeeklyLesson> ls)
+void myTime::setWeeklyLessons(std::vector<WeeklyLesson> ls)
 {
 	this->weeklyLessons = ls;
 }
@@ -80,9 +80,9 @@ WeeklyLesson WeeklyLesson::lastLesson()
 	return WeeklyLesson(Fri, forth);
 }
 
-string WeeklyLesson::getInfo()
+std::string WeeklyLesson::getInfo()
 {
-	string result = string();
+    std::string result = std::string();
 	switch (week) {
 	case Mon:
 		result.append("星期一");

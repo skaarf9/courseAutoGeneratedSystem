@@ -1,7 +1,6 @@
 #pragma once
 #include<string>
 #include<vector>
-using namespace std;
 
 enum Week {
 	Mon,
@@ -38,7 +37,7 @@ public:
 	/*返回一个结尾的时间,默认为星期五第四节,如果需要计算周六周末则应该为周末第四节*/
 	static WeeklyLesson lastLesson();
 	/*返回信息*/
-	string getInfo();
+    std::string getInfo();
 	/*课程向后推移*/
 	WeeklyLesson operator ++ ();
 	/*默认构造函数*/
@@ -62,7 +61,7 @@ class myTime
 {
 public:
 	/*构造函数,包含初始化列表*/
-	myTime(unsigned short startWeek, unsigned short endWeek, vector<WeeklyLesson> weeklyLessons) : startWeek(startWeek), endWeek(endWeek), weeklyLessons(weeklyLessons) {};
+    myTime(unsigned short startWeek, unsigned short endWeek, std::vector<WeeklyLesson> weeklyLessons) : startWeek(startWeek), endWeek(endWeek), weeklyLessons(weeklyLessons) {};
 	myTime(unsigned short startWeek, unsigned short endWeek) : startWeek(startWeek), endWeek(endWeek) {};
 	myTime() {};
 	/*检查时间是否冲突*/
@@ -72,9 +71,9 @@ public:
 	/*获取结束周*/
 	unsigned short getEndWeek();
 	/*获取每周课程对应时间*/
-	vector<WeeklyLesson> getWeeklyLessons();
+    std::vector<WeeklyLesson> getWeeklyLessons();
 	/*设置每周课程对应时间*/
-	void setWeeklyLessons(vector<WeeklyLesson> ls);
+    void setWeeklyLessons(std::vector<WeeklyLesson> ls);
 	void setWeeklyLessons(int i, WeeklyLesson ls);
 	/*添加每周课程时间*/
 	void addWeeklyLessons(WeeklyLesson lesson);
@@ -85,6 +84,6 @@ private:
 	/*结束周*/
 	unsigned short endWeek;
 	/*每周课程的对应时间*/
-	vector<WeeklyLesson> weeklyLessons;
+    std::vector<WeeklyLesson> weeklyLessons;
 };
 

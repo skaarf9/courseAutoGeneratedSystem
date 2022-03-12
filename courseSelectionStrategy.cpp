@@ -10,7 +10,7 @@ constexpr int MAX_LESSONS = 20;
 
 /*判断向量中是否有instance*/
 template<typename T>
-bool in_vector(vector<T> vector, T instance) {
+bool in_vector(std::vector<T> vector, T instance) {
 	bool result = false;
 	for (T vector_item : vector) {
 		if (vector_item == instance) {
@@ -22,7 +22,7 @@ bool in_vector(vector<T> vector, T instance) {
 }
 
 template<typename T>
-bool intersect_vector(vector<T> A, vector<T> B) {
+bool intersect_vector(std::vector<T> A, std::vector<T> B) {
 	for (T vector_item : A) {
 		if (in_vector(B, vector_item)) {
 			return true;
@@ -56,8 +56,8 @@ bool intersect_vector(vector<T> A, vector<T> B) {
 
 
 /*将矩阵的第colNum列的方案进行交换, 待交换行 为changeRow*/
-void change_col(int colNum, int changeRow, vector<vector<int>>& matrix) {
-	cout << "转移第" << colNum << "列,转移行为" << changeRow << endl;
+void change_col(int colNum, int changeRow, std::vector<std::vector<int>>& matrix) {
+    std::cout << "转移第" << colNum << "列,转移行为" << changeRow << std::endl;
 	for (int i = 0; i < matrix.size(); ++i) {
 		if (i == changeRow) {
 			continue;
@@ -91,10 +91,10 @@ void courseSelectTeacherStrategy::courseSelectTeacherAndClass()
 	courses.clear();
 	int teacher_index = 0;
 	int col = 0;
-	vector<myClass>::iterator class_iterator = classes.begin();
-	for (vector<subject>::iterator it = subjects.begin(); it != subjects.end();) {
-		vector<myClass> myClassTemp;
-		vector<subject>::iterator result = it;
+    std::vector<myClass>::iterator class_iterator = classes.begin();
+    for (std::vector<subject>::iterator it = subjects.begin(); it != subjects.end();) {
+        std::vector<myClass> myClassTemp;
+        std::vector<subject>::iterator result = it;
 		for (int i = 0; i < it->getWorkload(); ++i) {
 			myClassTemp.push_back(*class_iterator);
 			++class_iterator;
@@ -116,7 +116,7 @@ void courseSelectTeacherStrategy::courseSelectTeacherAndClass()
 		courses.push_back(course_instance);
 	}
 #ifdef Test
-	cout << "完成教师与班级信息的添加" << endl;
+    std::cout << "完成教师与班级信息的添加" << std::endl;
 #endif
 }
 
@@ -125,12 +125,12 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 	/*下一步,为课程添加时间与教室*/
 	bool complete_all = false;
 	/*排序course,让其按照学科的工作量(班级数量)从大到小排序(重载了<符号)*/
-	sort(&courses[0], &courses[0] + courses.size());
+    std::sort(&courses[0], &courses[0] + courses.size());
 	int start_index = 1;
 	while (!complete_all) {
 
 		//这个for循环用于找到初始的教室和时间
-		vector<course>::iterator it = courses.begin();
+        std::vector<course>::iterator it = courses.begin();
 		for (; it != courses.end(); ++it) {
 			//如果课程已经设置了班级和时间则跳过(未完成设置的会在后面重置为空)
 			if (!it->getClassroomAndTime().isEmpty())continue;
@@ -143,13 +143,13 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 			for (; end_week <= 20; ++start_week) {
 				bool complete = false;
 				for (WeeklyLesson weeklyTime = WeeklyLesson::firstLesson(); weeklyTime <= WeeklyLesson::lastLesson(); ++weeklyTime) {
-					vector<classroom>::iterator room_it = this->rooms.begin();
+                    std::vector<classroom>::iterator room_it = this->rooms.begin();
 					for (; room_it != this->rooms.end(); ++room_it) {
 						bool changeTime = false;
 						//如果教室太小则跳过
 						//这里可以添加自定义教室规则
 						if (room_it->getCapacity() < room_size_limit)continue;
-						vector<course>::iterator course_it = courses.begin();
+                        std::vector<course>::iterator course_it = courses.begin();
 						for (; course_it != courses.end(); ++course_it) {
 							//如果该课程没有设置教室和时间则跳过
 							if (course_it->getClassroomAndTime().isEmpty())continue;
@@ -163,7 +163,7 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 							{
 								//如果还有别的符合条件的教室
 								bool changeClassroom = false;
-								vector<classroom>::iterator temp_it = room_it + 1;
+                                std::vector<classroom>::iterator temp_it = room_it + 1;
 								for (; temp_it != this->rooms.end(); ++temp_it) {
 									if (temp_it->getCapacity() >= room_size_limit) {
 										//换教室
@@ -211,7 +211,7 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 				++end_week;
 			}
 			if (end_week == 21) {
-				cout << "无法分配教室和时间" << endl;
+                std::cout << "无法分配教室和时间" << std::endl;
 				system("pause");
 				exit(-1);
 			}
@@ -239,11 +239,11 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 					complete_all = false;
 					//根据已有的教室寻找合适的时间
 					for (WeeklyLesson weeklyTime = WeeklyLesson::firstLesson(); weeklyTime <= WeeklyLesson::lastLesson(); ++weeklyTime) {
-						vector<course>::iterator it_temp = courses.begin();
+                        std::vector<course>::iterator it_temp = courses.begin();
 						for (; it_temp < courses.end(); ++it_temp) {
 							if (it_temp->getClassroomAndTime().getTime().isConflict(myTime(static_cast<unsigned short>(start_week),
 								static_cast<unsigned short>(end_week),
-								vector<WeeklyLesson>()), weeklyTime) && (it_temp->getTeacher() == it->getTeacher() || intersect_vector<myClass>(it_temp->getClasses(), it->getClasses()))) {
+                                std::vector<WeeklyLesson>()), weeklyTime) && (it_temp->getTeacher() == it->getTeacher() || intersect_vector<myClass>(it_temp->getClasses(), it->getClasses()))) {
 								//如果遍历到最后一个了,则证明这个无法完成插入
 								if (weeklyTime == WeeklyLesson::lastLesson()) {
 									//删除先前已经插入的数据
@@ -267,7 +267,7 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 	}
 #ifdef Test
 	for (course c : courses) {
-		cout << c.getInfo();
+        std::cout << c.getInfo();
 	}
 #endif
 }
@@ -276,7 +276,7 @@ void courseSelectTeacherStrategy::getWeeklyLessonByClass(myClass myClass)
 {
 	for (course c : courses) {
 		if (in_vector(c.getClasses(), myClass)) {
-			cout << c.getInfo();
+            std::cout << c.getInfo();
 		}
 	}
 }
@@ -285,12 +285,12 @@ void courseSelectTeacherStrategy::getWeeklyLessonByTeacher(teacher t)
 {
 	for (course c : courses) {
 		if (c.getTeacher() == t) {
-			cout << c.getInfo();
+            std::cout << c.getInfo();
 		}
 	}
 }
 
-void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
+void courseSelectTeacherStrategy::init_matrix(std::vector<subject> subjects)
 {
 	this->matrix.clear();
 	/*将现有的教师学科合适度加入矩阵*/
@@ -298,7 +298,7 @@ void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 		this->matrix.push_back(t.getSuitableIndex());
 	}
 	/*根据学科的限制班级数在矩阵后加上学科列, 根据日常经验, course是按照学科进行排序的, 因为两个course,班级不同,老师不同,但是subject相同,那么,这俩course应该所选教室是相邻的,由于之后选择教室是顺序选择的,所以我们需要顺序排列相同subject的course*/
-	vector<subject>::iterator it = subjects.begin();
+    std::vector<subject>::iterator it = subjects.begin();
 	int index = 0;
 	for (int i = 0; it != subjects.end(); ++i, it++) {
 		/*cout << it->getWorkload() << endl;*/
@@ -316,21 +316,21 @@ void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 	}
 #ifdef Test
 	/*打印一下矩阵*/
-	cout << "初始教师合适度" << endl;
+    std::cout << "初始教师合适度" << std::endl;
 	index = 0;
-	cout << setw(5) << "教师名称";
+    std::cout << std::setw(5) << "教师名称";
 	for (int index : matrix[0]) {
-		cout << setw(5) << "学科";
+        std::cout << std::setw(5) << "学科";
 	}
-	cout << setw(5) << "教师工作量" << endl;
-	for (vector<int> row : matrix) {
-		cout << setw(5) << this->teachers[index].getTeacherName();
+    std::cout << std::setw(5) << "教师工作量" << std::endl;
+    for (std::vector<int> row : matrix) {
+        std::cout << std::setw(5) << this->teachers[index].getTeacherName();
 		for (int col : row) {
-			cout << setw(5) << col;
+            std::cout << std::setw(5) << col;
 		}
-		cout << setw(5) << this->teachers[index].getWorkload();
+        std::cout << std::setw(5) << this->teachers[index].getWorkload();
 		++index;
-		cout << endl;
+        std::cout << std::endl;
 	}
 #endif
 /*第一步,准备工作,贪心选择最优的划分方式使得合适度总和最高,不考虑教师所能承受的工作量*/
@@ -338,7 +338,7 @@ void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 	const int col = matrix[0].size();
 	/*行的数量*/
 	const int row = matrix.size();
-	vector<int> current_workload = vector<int>(row, 0);
+    std::vector<int> current_workload = std::vector<int>(row, 0);
 	for (int i = 0; i < col; ++i) {
 		int max = matrix[0][i];
 		int maxIndex = 0;
@@ -368,7 +368,7 @@ void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 	for (int i = 0; i < row; ++i) {
 		sum += current_workload[i];
 	}
-	cout << "总共需要" << sum << "个课程" << endl;
+    std::cout << "总共需要" << sum << "个课程" << std::endl;
 #endif
 /*第二步,根据教师的工作量对不合理之处进行转移*/
 	/*将current_workload中的数字转化为差值,同时验证教师的工作量大于所需工作量*/
@@ -378,20 +378,20 @@ void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 		teachers_workload_sum += current_workload[i];
 	}
 	if (teachers_workload_sum > 0) {
-		cout << "教师能够承受的工作量不足以支撑教学任务" << endl;
+        std::cout << "教师能够承受的工作量不足以支撑教学任务" << std::endl;
 		system("pause");
 		exit(0);
 	}
 	/*打印一下矩阵*/
 #ifdef Test
 	int i = -1;
-	cout << "第一步优化后" << endl;
-	for (vector<int> row : matrix) {
+    std::cout << "第一步优化后" << std::endl;
+    for (std::vector<int> row : matrix) {
 		for (int col : row) {
-			cout << setw(5) << col;
+            std::cout << std::setw(5) << col;
 		}
 		/*cout << " -1的数量: "<< current_workload[++i] << " 老师所能承受的工作量: " <<this->teachers[i].getWorkload() <<endl;*/
-		cout << " 相差的工作量: " << current_workload[++i] << " 老师所能承受的工作量: " << this->teachers[i].getWorkload() << endl;
+        std::cout << " 相差的工作量: " << current_workload[++i] << " 老师所能承受的工作量: " << this->teachers[i].getWorkload() << std::endl;
 	}
 #endif
 	/*将优化序列按照需要调整量有小到大排列,老师中需要调整的数量较少先选)*/
@@ -430,7 +430,7 @@ void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 			/*matrixArray received_array = matrixArray(current_workload[i], current_workload);*/
 
 			/*标记一下已选择列,在接下来的选择中弃用该列*/
-			vector<int> selected_cols = vector<int>(current_workload[i], -1);
+            std::vector<int> selected_cols = std::vector<int>(current_workload[i], -1);
 			/*每次向外传送一个工作,总共需要的次数为current_workload[i]次,即该老师超量工作量*/
 			while (0 < current_workload[i]) {
 				/*找到可选范围内对总和影响最小的*/
@@ -472,13 +472,13 @@ void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 		}
 	}
 	i = -1;
-	cout << "第二次优化后" << endl;
-	for (vector<int> row : matrix) {
+    std::cout << "第二次优化后" << std::endl;
+    for (std::vector<int> row : matrix) {
 		for (int col : row) {
-			cout << setw(5) << col;
+            std::cout << std::setw(5) << col;
 		}
 		/*cout << " -1的数量: "<< current_workload[++i] << " 老师所能承受的工作量: " <<this->teachers[i].getWorkload() <<endl;*/
-		cout << " 相差的工作量: " << current_workload[++i] << " 老师所能承受的工作量: " << this->teachers[i].getWorkload() << endl;
+        std::cout << " 相差的工作量: " << current_workload[++i] << " 老师所能承受的工作量: " << this->teachers[i].getWorkload() << std::endl;
 	}
 /*尝试优化*/
 	bool flag;
@@ -540,23 +540,23 @@ void courseSelectTeacherStrategy::init_matrix(vector<subject> subjects)
 	///*打印一下矩阵*/
 #ifdef Test
 	i = -1;
-	cout << "第三步优化后" << endl;
-	for (vector<int> row : matrix) {
+    std::cout << "第三步优化后" << std::endl;
+    for (std::vector<int> row : matrix) {
 		for (int col : row) {
-			cout << setw(5) << col;
+            std::cout << std::setw(5) << col;
 		}
 		/*cout << " -1的数量: "<< current_workload[++i] << " 老师所能承受的工作量: " <<this->teachers[i].getWorkload() <<endl;*/
-		cout << " 相差的工作量: "<< current_workload[++i] << " 老师所能承受的工作量: " <<this->teachers[i].getWorkload() <<endl;
+        std::cout << " 相差的工作量: "<< current_workload[++i] << " 老师所能承受的工作量: " <<this->teachers[i].getWorkload() <<std::endl;
 	}
 #endif
 }
 
 /* 不会修改原有的subject,传回的数据是个修改后的副本 */
 /* 功能是 */
-vector<subject> courseSelectTeacherStrategy::changeSubjects(vector<subject> subjects)
+std::vector<subject> courseSelectTeacherStrategy::changeSubjects(std::vector<subject> subjects)
 {
 	int classNum = this->classes.size();
-	for (vector<subject>::iterator it = subjects.begin(); it != subjects.end(); it++) {
+    for (std::vector<subject>::iterator it = subjects.begin(); it != subjects.end(); it++) {
 		/*向上取整*/
 		/*cout << classNum << " : " << it->getWorkload()<<endl;*/
 		it->setWorkload((classNum - 1) / it->getWorkload() + 1);

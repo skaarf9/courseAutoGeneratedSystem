@@ -1,8 +1,8 @@
 #include"myClass.h"
 
-string myClass::getInfo() {
-	string result;
-	result = "班级id: " + to_string(this->class_id) + " 班级名称: " + this->class_name + "\n";
+std::string myClass::getInfo() {
+    std::string result;
+    result = "班级id: " + std::to_string(this->class_id) + " 班级名称: " + this->class_name + "\n";
 	return result;
 }
 

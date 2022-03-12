@@ -6,7 +6,7 @@ class classroomAndTime
 {
 public:
 	/*获取全部信息*/
-	string getInfo();
+    std::string getInfo();
 	/*是否冲突*/
 	bool isConflict(const classroomAndTime& other_one, WeeklyLesson weeklyLesson);
 	/*构造函数*/

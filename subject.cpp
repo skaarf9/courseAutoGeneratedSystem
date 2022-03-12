@@ -1,13 +1,13 @@
 #include "subject.h"
 
-string subject::getInfo()
+std::string subject::getInfo()
 {
-	string result = string();
-	result.append("学科id: " + to_string(this->subject_id));
+    std::string result = std::string();
+    result.append("学科id: " + std::to_string(this->subject_id));
 	result.append(" 学科名称: " + this->name);
-	result.append("\n单位工作量(可接受的班级数量) " + to_string(this->workload));
-	result.append("\n学科课时: " + to_string(this->duration));
-	result.append("\n每周课时: " + to_string(this->weeklyLessonNum) + "\n");
+    result.append("\n单位工作量(可接受的班级数量) " + std::to_string(this->workload));
+    result.append("\n学科课时: " + std::to_string(this->duration));
+    result.append("\n每周课时: " + std::to_string(this->weeklyLessonNum) + "\n");
 	return result;
 }
 
@@ -26,7 +26,7 @@ void subject::setWeeklyLessonNum(int num)
 	this->weeklyLessonNum = num;
 }
 
-string subject::getName()
+std::string subject::getName()
 {
 	return this->name;
 }

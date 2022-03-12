@@ -1,13 +1,13 @@
 #include "classroomAndTime.h"
 
-string classroomAndTime::getInfo()
+std::string classroomAndTime::getInfo()
 {
-	string result = string();
-	result.append("教室编号: " + this->room.getName() + " 教室大小: " + to_string(this->room.getCapacity()) + "\n每周课程: \n");
+    std::string result = std::string();
+    result.append("教室编号: " + this->room.getName() + " 教室大小: " + std::to_string(this->room.getCapacity()) + "\n每周课程: \n");
 	for (WeeklyLesson i : this->time.getWeeklyLessons()) {
 		result.append(i.getInfo());
 	}
-	result.append(to_string(static_cast<int>(this->time.getStartWeek())) + "~" + to_string(static_cast<int>(this->time.getEndWeek())) + "周\n");
+    result.append(std::to_string(static_cast<int>(this->time.getStartWeek())) + "~" + std::to_string(static_cast<int>(this->time.getEndWeek())) + "周\n");
 	return result;
 }
 

@@ -7,9 +7,9 @@ bool course::operator<(const course & other_one)
 }
 
 /*课程中显示所有信息的方法*/
-string course::getInfo() {
+std::string course::getInfo() {
 	/*分隔符*/
-	string result = "----------------------\n";
+    std::string result = "----------------------\n";
 	result += this->teacher.getInfo() + this->subject.getInfo() + "负责的班级: \n";
 	for(myClass classInstance : this->classes)
 	{
@@ -39,7 +39,7 @@ teacher course::getTeacher()
 	return this->teacher;
 }
 
-vector<myClass> course::getClasses()
+std::vector<myClass> course::getClasses()
 {
 	return this->classes;
 }

@@ -6,7 +6,7 @@ bool classroom::operator==(const classroom& other_one)
 	return this->name == other_one.name;
 }
 
-string classroom::getName()
+std::string classroom::getName()
 {
 	return this->name;
 }
