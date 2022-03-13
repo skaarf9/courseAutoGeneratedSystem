@@ -20,8 +20,10 @@ public:
     courseSelectTeacherStrategy(std::vector<teacher> teachers, std::vector<subject> subjects, std::vector<myClass> classes, std::vector<classroom> rooms) :teachers(teachers), subjects(subjects), classes(classes), rooms(rooms){
 		courseSelectTeacherAndClass();
 		courseSelectClassroomAndTime();
+        std::cout << "完成了排课!!" << std::endl;
 	};
-	
+    /* 获取courses */
+    std::vector<course> getCourses();
 private:
     std::vector<myClass> classes;
     std::vector<subject> subjects;

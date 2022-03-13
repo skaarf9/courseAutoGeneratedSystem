@@ -1,7 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include "propertiesreader.h"
 #include <QMainWindow>
+#include "mysqlutil.h"
+#include <QSqlQuery>
+#include <sstream>
+#include "courseSelectionStrategy.h"
+#include <QMessageBox>
+#include <QStandardItemModel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

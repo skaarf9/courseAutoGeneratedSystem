@@ -15,9 +15,10 @@ MysqlUtil::MysqlUtil()
     db.setUserName(this->username);
     db.setPassword(this->password);
     db.setDatabaseName(this->databasename);
+    prop.writeProperties("nihao", "hello");
     if(!db.open()){
         qDebug() << "不能连接" <<db.lastError().text();
-        return;
+        throw std::exception();
     }else {
         qDebug() << "连接成功!";
     }
@@ -29,4 +30,31 @@ QString MysqlUtil::toString(){
 
 void MysqlUtil::closeDatabase(){
     this->db.close();
+}
+
+QSqlDatabase MysqlUtil::getConn(){
+    return this->db;
+}
+
+MysqlUtil::MysqlUtil(QString username, QString password){
+    PropertiesReader prop("../GraduationProject/sql.properties");
+    QHash<QString,QString> sqlConfig = prop.getResult();
+    db = QSqlDatabase::addDatabase("QMYSQL");
+    this->ip = sqlConfig.take("ip");
+    this->username = username;
+    this->password = password;
+    this->databasename = sqlConfig.take("databasename");
+    this->port = sqlConfig.take("port");
+//    qDebug() << this->toString();
+    db.setHostName(this->ip);
+    db.setUserName(this->username);
+    db.setPassword(this->password);
+    db.setDatabaseName(this->databasename);
+    prop.writeProperties("nihao", "hello");
+    if(!db.open()){
+        qDebug() << "不能连接" <<db.lastError().text();
+        throw std::exception();
+    }else {
+        qDebug() << "连接成功!";
+    }
 }

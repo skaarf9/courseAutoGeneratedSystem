@@ -1,7 +1,7 @@
 #include "courseSelectionStrategy.h"
 
 /* 开启测试代码 */
-#define Test
+//#define Test
 
 /*所选择的老师的标记(用在矩阵中)*/
 constexpr int MAX_SELECTED = -11;
@@ -57,7 +57,9 @@ bool intersect_vector(std::vector<T> A, std::vector<T> B) {
 
 /*将矩阵的第colNum列的方案进行交换, 待交换行 为changeRow*/
 void change_col(int colNum, int changeRow, std::vector<std::vector<int>>& matrix) {
+#ifdef Test
     std::cout << "转移第" << colNum << "列,转移行为" << changeRow << std::endl;
+#endif
 	for (int i = 0; i < matrix.size(); ++i) {
 		if (i == changeRow) {
 			continue;
@@ -383,8 +385,8 @@ void courseSelectTeacherStrategy::init_matrix(std::vector<subject> subjects)
 		exit(0);
 	}
 	/*打印一下矩阵*/
+    int i = -1;
 #ifdef Test
-	int i = -1;
     std::cout << "第一步优化后" << std::endl;
     for (std::vector<int> row : matrix) {
 		for (int col : row) {
@@ -471,6 +473,7 @@ void courseSelectTeacherStrategy::init_matrix(std::vector<subject> subjects)
 			}*/
 		}
 	}
+#ifdef Test
 	i = -1;
     std::cout << "第二次优化后" << std::endl;
     for (std::vector<int> row : matrix) {
@@ -480,6 +483,7 @@ void courseSelectTeacherStrategy::init_matrix(std::vector<subject> subjects)
 		/*cout << " -1的数量: "<< current_workload[++i] << " 老师所能承受的工作量: " <<this->teachers[i].getWorkload() <<endl;*/
         std::cout << " 相差的工作量: " << current_workload[++i] << " 老师所能承受的工作量: " << this->teachers[i].getWorkload() << std::endl;
 	}
+#endif
 /*尝试优化*/
 	bool flag;
 	do {
@@ -567,4 +571,8 @@ std::vector<subject> courseSelectTeacherStrategy::changeSubjects(std::vector<sub
 		cout << subject.getName() << " : "<< subject.getWorkload() << endl;
 	}*/
 	return subjects;
+}
+
+std::vector<course> courseSelectTeacherStrategy::getCourses(){
+    return this->courses;
 }

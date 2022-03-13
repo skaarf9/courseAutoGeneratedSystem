@@ -15,6 +15,7 @@ SOURCES += \
     classroomAndTime.cpp \
     course.cpp \
     courseSelectionStrategy.cpp \
+    coursedisplaywidget.cpp \
     editclasswidget.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -30,6 +31,7 @@ HEADERS += \
     classroomAndTime.h \
     course.h \
     courseSelectionStrategy.h \
+    coursedisplaywidget.h \
     editclasswidget.h \
     mainwindow.h \
     myClass.h \
@@ -40,6 +42,7 @@ HEADERS += \
     teacher.h
 
 FORMS += \
+    coursedisplaywidget.ui \
     editclasswidget.ui \
     mainwindow.ui
 
@@ -52,5 +55,6 @@ DISTFILES += \
     .gitattributes \
     .gitignore \
     GraduationProject.pro.user \
+    school.sql \
     sql.properties \
     sql.propertity
