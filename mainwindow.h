@@ -8,6 +8,8 @@
 #include "courseSelectionStrategy.h"
 #include <QMessageBox>
 #include <QStandardItemModel>
+#include <coursedisplaywidget.h>
+#include <QLabel>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

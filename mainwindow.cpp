@@ -14,6 +14,16 @@ std::vector<int> Stringsplit(std::string str,const char split)
     return result;
 }
 
+QString getClassesNameFromVector(std::vector<myClass> classes){
+    QString result;
+    for(myClass c : classes){
+        result.append(QString::fromStdString(c.getClassName() + "\n"));
+    }
+    return result.trimmed();
+}
+
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -26,7 +36,6 @@ MainWindow::MainWindow(QWidget *parent)
     QString password = config.take("password");
     ui->editer_UserName->setText(username);
     ui->editer_password->setText(password);
-    courseSelectTeacherStrategy* cs;
     connect(ui->btn_login, &QPushButton::clicked, this,[=]()mutable{
         try{
             MysqlUtil sql(ui->editer_UserName->text(), ui->editer_password->text());
@@ -63,17 +72,27 @@ MainWindow::MainWindow(QWidget *parent)
             t.setSuitableIndex(subject_size, Stringsplit(query.value("s_subject_suitable_index").toString().toStdString(), ','));
             teachers.push_back(t);
         }
-        cs = new courseSelectTeacherStrategy(teachers, subjects, classes, classrooms);
-        ui->stackedWidget->setCurrentIndex(1);
-        QStandardItemModel* model = new QStandardItemModel;
-        ui->courseView->setModel(model);
-        model->setHorizontalHeaderItem(0, new QStandardItem("姓名") );
-        model->setHorizontalHeaderItem(1, new QStandardItem("学号"));
-        model->setHorizontalHeaderItem(2, new QStandardItem("性别"));
-        model->setHorizontalHeaderItem(3, new QStandardItem("年龄"));
-        model->setHorizontalHeaderItem(4, new QStandardItem("院系"));
-        model->setHorizontalHeaderItem(5, new QStandardItem("兴趣"));
-        new QStandardItem()
+//        courseSelectTeacherStrategy cs = courseSelectTeacherStrategy(teachers, subjects, classes, classrooms);
+//        std::vector<course> courses = cs.getCourses();
+//        for(course c : courses){
+//            CourseDisplayWidget* courseWidget = new CourseDisplayWidget();
+//            courseWidget->findChild<QLabel*>("subject")->setText(QString::fromStdString(c.getSubject().getName()));
+//            courseWidget->findChild<QLabel*>("teacher")->setText(QString::fromStdString(c.getTeacher().getTeacherName()));
+//            courseWidget->findChild<QLabel*>("classroom")->setText(QString::fromStdString(c.getClassroomAndTime().getClassroom().getName()));
+//            courseWidget->findChild<QLabel*>("classes")->setText(getClassesNameFromVector(c.getClasses()));
+//            courseWidget->findChild<QLabel*>("weeks")->setText(QString::fromStdString(c.getClassroomAndTime().getTime().getWeeklyTimes()));
+//            this->ui->coursesDisplay->addWidget(courseWidget);
+//        }
+        CourseDisplayWidget* courseWidget = new CourseDisplayWidget();
+        courseWidget->findChild<QLabel*>("subject")->setText("测试学科");
+        courseWidget->findChild<QLabel*>("teacher")->setText("测试老师");
+        courseWidget->findChild<QLabel*>("classroom")->setText("测试教室");
+        courseWidget->findChild<QLabel*>("classes")->setText("测试班级\n测试班级");
+        courseWidget->findChild<QLabel*>("weeks")->setText("1~10周");
+        this->ui->coursesDisplay->addWidget(courseWidget, 1, 1);
+        //跳转到下一页
+        this->ui->stackedWidget->setCurrentIndex(1);
+//        new QStandardItem()
     });
 }
 

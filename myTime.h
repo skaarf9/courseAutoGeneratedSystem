@@ -1,6 +1,7 @@
 #pragma once
 #include<string>
 #include<vector>
+#include <sstream>
 
 enum Week {
 	Mon,
@@ -70,6 +71,8 @@ public:
 	unsigned short getStartWeek();
 	/*获取结束周*/
 	unsigned short getEndWeek();
+    /* 获取周次信息 */
+    std::string getWeeklyTimes();
 	/*获取每周课程对应时间*/
     std::vector<WeeklyLesson> getWeeklyLessons();
 	/*设置每周课程对应时间*/

@@ -9,6 +9,8 @@ public:
 	/*构造函数*/
     myClass(int class_id, std::string name) :class_id(class_id), class_name(name) {};
 	bool operator == (const myClass& other_one);
+    /* 获取班级名称 */
+    std::string getClassName();
 private:
 	int class_id;
     std::string class_name;

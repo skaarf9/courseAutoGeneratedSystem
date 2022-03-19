@@ -138,3 +138,9 @@ WeeklyLesson WeeklyLesson::operator++()
 	}
 	return *this;
 }
+
+std::string myTime::getWeeklyTimes(){
+    std::ostringstream ss;
+    ss << this->startWeek << "~" << this->endWeek << "周";
+    return ss.str();
+}

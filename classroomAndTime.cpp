@@ -41,3 +41,7 @@ bool classroomAndTime::isEmpty()
 {
 	return this->room.getName() == "";
 }
+
+classroom classroomAndTime::getClassroom(){
+    return this->room;
+}

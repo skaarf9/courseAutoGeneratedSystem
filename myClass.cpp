@@ -10,3 +10,7 @@ bool myClass::operator==(const myClass & other_one)
 {
 	return this->class_id == other_one.class_id;
 }
+
+std::string myClass::getClassName(){
+    return this->class_name;
+}

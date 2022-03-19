@@ -16,6 +16,8 @@ public:
 	myTime getTime()const;
 	/*设置教室*/
 	void setClassroom(classroom room);
+    /* 获取教室 */
+    classroom getClassroom();
 	/*设置时间*/
 	void setTime(myTime time);
 	/*添加每周上课时间*/
