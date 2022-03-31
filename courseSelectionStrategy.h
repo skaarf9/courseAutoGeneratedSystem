@@ -2,6 +2,7 @@
 #include"course.h"
 #include"teacher.h"
 #include<algorithm>
+#include <ctime>
 
 class courseSelectTeacherStrategy
 {
@@ -12,15 +13,21 @@ public:
 	/* 为课程分配教室与时间 */
 	void courseSelectClassroomAndTime();
 	/* 根据完成的排课情况,打印出对应班级的每周课程信息 */
-	void getWeeklyLessonByClass(myClass myClass);
+    std::vector<course> getWeeklyLessonByClass(myClass myClass, int week = -1);
 
 	/* 根据完成的排课情况,打印出对应老师的每周课程信息 */
-	void getWeeklyLessonByTeacher(teacher t);
+    std::vector<course> getWeeklyLessonByTeacher(teacher t, int week = -1);
 	/*构造函数*/
     courseSelectTeacherStrategy(std::vector<teacher> teachers, std::vector<subject> subjects, std::vector<myClass> classes, std::vector<classroom> rooms) :teachers(teachers), subjects(subjects), classes(classes), rooms(rooms){
+        clock_t first = clock();
 		courseSelectTeacherAndClass();
+        clock_t second = clock();
 		courseSelectClassroomAndTime();
-        std::cout << "完成了排课!!" << std::endl;
+        clock_t third = clock();
+        std::cout << "教师选课所用时间:" << (second - first) / CLOCKS_PER_SEC << std::endl;
+        std::cout << "自动排课所用时间:" << (third - second) / CLOCKS_PER_SEC << std::endl;
+        std::cout << "总共时间:" << (third - first) / CLOCKS_PER_SEC << std::endl;
+//        std::cout << "完成了排课!!" << std::endl;
 	};
     /* 获取courses */
     std::vector<course> getCourses();

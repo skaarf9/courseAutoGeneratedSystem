@@ -144,3 +144,11 @@ std::string myTime::getWeeklyTimes(){
     ss << this->startWeek << "~" << this->endWeek << "周";
     return ss.str();
 }
+
+Week WeeklyLesson::getWeek(){
+    return this->week;
+}
+
+DailyLesson WeeklyLesson::getDailyLesson(){
+    return this->dailyLesson;
+}

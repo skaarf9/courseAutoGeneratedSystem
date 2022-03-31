@@ -45,6 +45,10 @@ public:
 	WeeklyLesson() {};
 	/*有参构造函数*/
 	WeeklyLesson(Week week, DailyLesson dailyLesson): week(week), dailyLesson(dailyLesson) {};
+    /* 获取week */
+    Week getWeek();
+    /* 获取dailyLesson */
+    DailyLesson getDailyLesson();
 private:
 	friend class myTime;
 	Week week;

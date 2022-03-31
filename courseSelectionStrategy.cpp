@@ -1,8 +1,8 @@
 #include "courseSelectionStrategy.h"
 
 /* 开启测试代码 */
-//#define Test
-
+#define Test
+constexpr int RUNTIME = 30;
 /*所选择的老师的标记(用在矩阵中)*/
 constexpr int MAX_SELECTED = -11;
 /*每周最大的课时数,如果定为28则计算了周六周日*/
@@ -128,168 +128,224 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
 	bool complete_all = false;
 	/*排序course,让其按照学科的工作量(班级数量)从大到小排序(重载了<符号)*/
     std::sort(&courses[0], &courses[0] + courses.size());
-	int start_index = 1;
-	while (!complete_all) {
-
-		//这个for循环用于找到初始的教室和时间
-        std::vector<course>::iterator it = courses.begin();
-		for (; it != courses.end(); ++it) {
-			//如果课程已经设置了班级和时间则跳过(未完成设置的会在后面重置为空)
-			if (!it->getClassroomAndTime().isEmpty())continue;
-			/*开始周: 初始为第一周第一节课的时间,也可以设置为其他的,只要最后能容纳所有的课程就好*/
-			int start_week = start_index;
-			/*结束周,由开始周与学科课时再加每周课时计算出结束周,向上取整*/
-			int end_week = (it->getSubject().getDuration() - 1) / it->getSubject().getWeeklyLessonNum() + start_week;
-			/*教室限制大小*/
-			int room_size_limit = it->getClasses().size();
-			for (; end_week <= 20; ++start_week) {
-				bool complete = false;
-				for (WeeklyLesson weeklyTime = WeeklyLesson::firstLesson(); weeklyTime <= WeeklyLesson::lastLesson(); ++weeklyTime) {
-                    std::vector<classroom>::iterator room_it = this->rooms.begin();
-					for (; room_it != this->rooms.end(); ++room_it) {
-						bool changeTime = false;
-						//如果教室太小则跳过
-						//这里可以添加自定义教室规则
-						if (room_it->getCapacity() < room_size_limit)continue;
-                        std::vector<course>::iterator course_it = courses.begin();
-						for (; course_it != courses.end(); ++course_it) {
-							//如果该课程没有设置教室和时间则跳过
-							if (course_it->getClassroomAndTime().isEmpty())continue;
-							//时间与教室冲突
-							if (course_it->getClassroomAndTime().isConflict(
-								{
-									*room_it,
-									myTime(static_cast<unsigned short>(start_week),
-										static_cast<unsigned short>(end_week))
-								}, weeklyTime))
-							{
-								//如果还有别的符合条件的教室
-								bool changeClassroom = false;
-                                std::vector<classroom>::iterator temp_it = room_it + 1;
-								for (; temp_it != this->rooms.end(); ++temp_it) {
-									if (temp_it->getCapacity() >= room_size_limit) {
-										//换教室
-										room_it = temp_it - 1;
-										changeClassroom = true;
-										break;
-									}
-								}
-								if (changeClassroom) {
-									break;
-								}
-								//执行到这里说明没有合适的教室了
-								//换时间
-								changeTime = true;
-								break;
-							}
-							//同一时间老师或学生冲突
-							else if (course_it->getClassroomAndTime().getTime().isConflict(myTime(static_cast<unsigned short>(start_week),
-								static_cast<unsigned short>(end_week)), weeklyTime) && (course_it->getTeacher() == it->getTeacher() || intersect_vector<myClass>(course_it->getClasses(), it->getClasses()))) {
-								//换时间
-								changeTime = true;
-								break;
-							}
-						}
-						if (changeTime) {
-							break;
-						}
-						if (course_it == courses.end()) {
-							myTime temp = myTime(static_cast<unsigned short>(start_week),
-								static_cast<unsigned short>(end_week));
-							temp.addWeeklyLessons(weeklyTime);
-							//这里能完成所有courses的更新
-							it->set_room_time({ *room_it, temp });
-							complete = true;
-							break;
-						}
-					}
-					if (complete) {
-						break;
-					}
-				}
-				if (complete) {
-					break;
-				}
-				++end_week;
-			}
-			if (end_week == 21) {
-                std::cout << "无法分配教室和时间" << std::endl;
-				system("pause");
-				exit(-1);
-			}
-		}
-		//完成了一次选课时间,如果每周两节的话还需要再找一个时间就够了
-		//另外,第一次选课是以同时占满每个教室为方向写的(另一种是将每个时间的某个教室占满,会导致单个教室资源紧张,从而影响该教室后续同一课程的安排),所以如果第二次找不到合适的时间,那么只可能是本身教室就不够多
-		//由于第二次选时间是不需要遍历教室或者周的,所以只能另起炉灶,不过代码还是可以参考的
-		bool done = false;
-		while (!done) {
-			//跳出大循环的key
-			//如果在一次遍历后都完成了添加则complete_all仍然是true,将跳出最终循环
-			complete_all = true;
-			done = true;
-			it = courses.begin();
-			for (; it != courses.end(); ++it) {
-				if (it->getClassroomAndTime().isEmpty()) {
-					complete_all = false;
-					continue;
-				}
-				unsigned short start_week = it->getClassroomAndTime().getTime().getStartWeek();
-				unsigned short end_week = it->getClassroomAndTime().getTime().getEndWeek();
-				//如果已配置课程数不足每周课时,则添加
-				if (it->getClassroomAndTime().getTime().getWeeklyLessons().size() < it->getSubject().getWeeklyLessonNum()) {
-					//只要有一个还没完成,则false;
-					complete_all = false;
-					//根据已有的教室寻找合适的时间
-					for (WeeklyLesson weeklyTime = WeeklyLesson::firstLesson(); weeklyTime <= WeeklyLesson::lastLesson(); ++weeklyTime) {
-                        std::vector<course>::iterator it_temp = courses.begin();
-						for (; it_temp < courses.end(); ++it_temp) {
-							if (it_temp->getClassroomAndTime().getTime().isConflict(myTime(static_cast<unsigned short>(start_week),
-								static_cast<unsigned short>(end_week),
-                                std::vector<WeeklyLesson>()), weeklyTime) && (it_temp->getTeacher() == it->getTeacher() || intersect_vector<myClass>(it_temp->getClasses(), it->getClasses()))) {
-								//如果遍历到最后一个了,则证明这个无法完成插入
-								if (weeklyTime == WeeklyLesson::lastLesson()) {
-									//删除先前已经插入的数据
-									it->set_room_time(classroomAndTime());
-								}
-								break;
-							}
-						}
-						if (it_temp == courses.end()) {
-							//两个都要加,因为如果要重置循环的话还需要completeCourse的数据保持最新
-							it->addClassTimeWeekly(weeklyTime);
-							//如果还有需要添加的就设置为false,让循环继续,知道一次循环过后不再有需要添加的或者不能添加的为止
-							done = false;
-							break;
-						}
-					}
-				}
-			}
-		}
-		++start_index;
-	}
+    std::vector<course> tempCourse = this->courses;
+    clock_t endTime = clock() + RUNTIME * CLOCKS_PER_SEC;
+    std::vector<course>::iterator it = courses.begin();
+    int index = 0;
+    bool timeToChangeOrder = false;
+    int start_index = 0;
+//    while(clock() < endTime){
+//        if(complete_all){
+//            break;
+//        }
+//        std::swap(tempCourse[0], tempCourse[index]);
+//        this->courses = tempCourse;
+    #ifdef Test
+    //    int totalTimes = 0;
+    //    int conflictByClassRoom = 0;
+    //    int conflictByTeacherOrClass = 0;
+    //    int succeedAddTimes = 0;
+    #endif
+        while (!complete_all) {
+            //这个for循环用于找到初始的教室和时间
+            for (it = courses.begin(), index = 0; it != courses.end(); ++it, ++index) {
+                //如果课程已经设置了班级和时间则跳过(未完成设置的会在后面重置为空)
+                if (!it->getClassroomAndTime().isEmpty())continue;
+                /*开始周: 初始为第一周第一节课的时间,也可以设置为其他的,只要最后能容纳所有的课程就好*/
+                int start_week = start_index;
+                /*结束周,由开始周与学科课时再加每周课时计算出结束周,向上取整*/
+                int end_week = (it->getSubject().getDuration() - 1) / it->getSubject().getWeeklyLessonNum() + start_week;
+                /*教室限制大小*/
+                int room_size_limit = it->getClasses().size();
+                for (; end_week <= 20; ++start_week) {
+                    bool complete = false;
+                    for (WeeklyLesson weeklyTime = WeeklyLesson::firstLesson(); weeklyTime <= WeeklyLesson::lastLesson(); ++weeklyTime) {
+                        std::vector<classroom>::iterator room_it = this->rooms.begin();
+                        for (; room_it != this->rooms.end(); ++room_it) {
+                            bool changeTime = false;
+                            //如果教室太小则跳过
+                            //这里可以添加自定义教室规则
+                            if (room_it->getCapacity() < room_size_limit)continue;
+                            std::vector<course>::iterator course_it = courses.begin();
+                            for (; course_it != courses.end(); ++course_it) {
+                                //如果该课程没有设置教室和时间则跳过
+                                if (course_it->getClassroomAndTime().isEmpty())continue;
+    #ifdef Test
+    //                            ++totalTimes;
+    #endif
+                                //时间与教室冲突
+                                if (course_it->getClassroomAndTime().isConflict(
+                                    {
+                                        *room_it,
+                                        myTime(static_cast<unsigned short>(start_week),
+                                            static_cast<unsigned short>(end_week))
+                                    }, weeklyTime))
+                                {
+                                    //如果还有别的符合条件的教室
+    #ifdef Test
+    //                                ++conflictByClassRoom;
+    #endif
+                                    bool changeClassroom = false;
+                                    std::vector<classroom>::iterator temp_it = room_it + 1;
+                                    for (; temp_it != this->rooms.end(); ++temp_it) {
+                                        if (temp_it->getCapacity() >= room_size_limit) {
+                                            //换教室
+                                            room_it = temp_it - 1;
+                                            changeClassroom = true;
+                                            break;
+                                        }
+                                    }
+                                    if (changeClassroom) {
+                                        break;
+                                    }
+                                    //执行到这里说明没有合适的教室了
+                                    //换时间
+                                    changeTime = true;
+                                    break;
+                                }
+                                //同一时间老师或学生冲突
+                                else if (course_it->getClassroomAndTime().getTime().isConflict(myTime(static_cast<unsigned short>(start_week),
+                                    static_cast<unsigned short>(end_week)), weeklyTime) && (course_it->getTeacher() == it->getTeacher() || intersect_vector<myClass>(course_it->getClasses(), it->getClasses()))) {
+                                    //换时间
+                                    changeTime = true;
+    #ifdef Test
+    //                                ++conflictByTeacherOrClass;
+    #endif
+                                    break;
+                                }
+                            }
+                            if (changeTime) {
+                                break;
+                            }
+                            if (course_it == courses.end()) {
+    #ifdef Test
+    //                            ++succeedAddTimes;
+    #endif
+                                myTime temp = myTime(static_cast<unsigned short>(start_week),
+                                    static_cast<unsigned short>(end_week));
+                                temp.addWeeklyLessons(weeklyTime);
+                                //这里能完成所有courses的更新
+                                it->set_room_time({ *room_it, temp });
+                                complete = true;
+                                break;
+                            }
+                        }
+                        if (complete) {
+                            break;
+                        }
+                    }
+                    if (complete) {
+                        break;
+                    }
+                    ++end_week;
+                }
+                if (end_week == 21) {
+                    std::cout << "无法分配教室和时间" << std::endl;
+    //				system("pause");
+    #ifdef Test
+                    std::cout << "---------------" << std::endl;
+                    std::cout << "无法分配的教师为: " << it->getTeacher().getTeacherName() << std::endl;
+                    std::cout << "无法分配的学科为: " << it->getSubject().getName() << std::endl;
+    //                std::cout << "总次数: " << totalTimes << std::endl;
+    //                std::cout << "成功次数: " << succeedAddTimes << std::endl;
+    //                std::cout << "教室冲突次数: " << conflictByClassRoom << std::endl;
+    //                std::cout << "教师或班级冲突次数: " << conflictByTeacherOrClass << std::endl;
+    #endif
+                    timeToChangeOrder = true;
+                    break;
+//                    exit(-1);
+                }
+            }
+            if(timeToChangeOrder){
+                break;
+            }
+            //完成了一次选课时间,如果每周两节的话还需要再找一个时间就够了
+            //另外,第一次选课是以同时占满每个教室为方向写的(另一种是将每个时间的某个教室占满,会导致单个教室资源紧张,从而影响该教室后续同一课程的安排),所以如果第二次找不到合适的时间,那么只可能是本身教室就不够多
+            //由于第二次选时间是不需要遍历教室或者周的,所以只能另起炉灶,不过代码还是可以参考的
+            bool done = false;
+            while (!done) {
+                //跳出大循环的key
+                //如果在一次遍历后都完成了添加则complete_all仍然是true,将跳出最终循环
+                complete_all = true;
+                done = true;
+                it = courses.begin();
+                for (; it != courses.end(); ++it) {
+                    if (it->getClassroomAndTime().isEmpty()) {
+                        complete_all = false;
+                        continue;
+                    }
+                    unsigned short start_week = it->getClassroomAndTime().getTime().getStartWeek();
+                    unsigned short end_week = it->getClassroomAndTime().getTime().getEndWeek();
+                    //如果已配置课程数不足每周课时,则添加
+                    if (it->getClassroomAndTime().getTime().getWeeklyLessons().size() < it->getSubject().getWeeklyLessonNum()) {
+                        //只要有一个还没完成,则false;
+                        complete_all = false;
+                        //根据已有的教室寻找合适的时间
+                        for (WeeklyLesson weeklyTime = WeeklyLesson::firstLesson(); weeklyTime <= WeeklyLesson::lastLesson(); ++weeklyTime) {
+                            std::vector<course>::iterator it_temp = courses.begin();
+                            for (; it_temp < courses.end(); ++it_temp) {
+                                if (it_temp->getClassroomAndTime().getTime().isConflict(myTime(static_cast<unsigned short>(start_week),
+                                    static_cast<unsigned short>(end_week),
+                                    std::vector<WeeklyLesson>()), weeklyTime) && (it_temp->getTeacher() == it->getTeacher() || intersect_vector<myClass>(it_temp->getClasses(), it->getClasses()))) {
+                                    //如果遍历到最后一个了,则证明这个无法完成插入
+                                    if (weeklyTime == WeeklyLesson::lastLesson()) {
+                                        //删除先前已经插入的数据
+                                        it->set_room_time(classroomAndTime());
+                                    }
+                                    break;
+                                }
+                            }
+                            if (it_temp == courses.end()) {
+                                //两个都要加,因为如果要重置循环的话还需要completeCourse的数据保持最新
+                                it->addClassTimeWeekly(weeklyTime);
+                                //如果还有需要添加的就设置为false,让循环继续,直到一次循环过后不再有需要添加的或者不能添加的为止
+                                done = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            ++start_index;
+        }
+//    }
 #ifdef Test
 	for (course c : courses) {
         std::cout << c.getInfo();
-	}
+    }
 #endif
 }
 
-void courseSelectTeacherStrategy::getWeeklyLessonByClass(myClass myClass)
+std::vector<course> courseSelectTeacherStrategy::getWeeklyLessonByClass(myClass myClass, int week)
 {
+    std::vector<course> temp;
 	for (course c : courses) {
 		if (in_vector(c.getClasses(), myClass)) {
-            std::cout << c.getInfo();
+//            std::cout << c.getInfo();
+            if(week == -1){
+                temp.push_back(c);
+            }else if (c.getClassroomAndTime().getTime().getStartWeek() <= week && c.getClassroomAndTime().getTime().getEndWeek() >= week){
+                temp.push_back(c);
+            }
 		}
 	}
+    return temp;
 }
 
-void courseSelectTeacherStrategy::getWeeklyLessonByTeacher(teacher t)
+std::vector<course> courseSelectTeacherStrategy::getWeeklyLessonByTeacher(teacher t, int week)
 {
+    std::vector<course> temp;
 	for (course c : courses) {
 		if (c.getTeacher() == t) {
             std::cout << c.getInfo();
+            if(week == -1){
+                temp.push_back(c);
+            }else if (c.getClassroomAndTime().getTime().getStartWeek() <= week && c.getClassroomAndTime().getTime().getEndWeek() >= week){
+                temp.push_back(c);
+            }
 		}
 	}
+    return temp;
 }
 
 void courseSelectTeacherStrategy::init_matrix(std::vector<subject> subjects)
@@ -381,7 +437,7 @@ void courseSelectTeacherStrategy::init_matrix(std::vector<subject> subjects)
 	}
 	if (teachers_workload_sum > 0) {
         std::cout << "教师能够承受的工作量不足以支撑教学任务" << std::endl;
-		system("pause");
+//		system("pause");
 		exit(0);
 	}
 	/*打印一下矩阵*/
@@ -491,7 +547,7 @@ void courseSelectTeacherStrategy::init_matrix(std::vector<subject> subjects)
 		for (int i = 0; i < row; ++i) {
 			for (int j = 0; j < col; ++j) {
 				/*如果当前数字(matrix[i][j])为负数(可以尝试优化)并且不是已选方案, matrix[i][j]为备选方案*/
-				if (matrix[i][j] < 0 && matrix[i][j] != MAX_SELECTED) {
+                if (matrix[i][j] < 0 && matrix[i][j] != MAX_SELECTED) {
 					/*找到这一列的已选方案*/
 					int selected_row = 0;
 					for (; selected_row < row; ++selected_row) {
@@ -502,11 +558,11 @@ void courseSelectTeacherStrategy::init_matrix(std::vector<subject> subjects)
 					/*这个时候selected_row已经是当前列所选了*/
 					if (current_workload[i] < 0) {
 						//备选方案能够直接转让,不需要交换方案
-						change_col(i, j, matrix);
+                        change_col(j, i, matrix);
 						++current_workload[selected_row];
 						--current_workload[i];
 						flag = true;
-						break;
+                        break;
 					}
 					/*遍历找到替换方案中的最小值*/
 					int min_changeable = INT32_MAX;

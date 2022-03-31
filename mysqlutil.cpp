@@ -50,7 +50,6 @@ MysqlUtil::MysqlUtil(QString username, QString password){
     db.setUserName(this->username);
     db.setPassword(this->password);
     db.setDatabaseName(this->databasename);
-    prop.writeProperties("nihao", "hello");
     if(!db.open()){
         qDebug() << "不能连接" <<db.lastError().text();
         throw std::exception();
