@@ -132,19 +132,23 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
     clock_t endTime = clock() + RUNTIME * CLOCKS_PER_SEC;
     std::vector<course>::iterator it = courses.begin();
     int index = 0;
-    bool timeToChangeOrder = false;
-    int start_index = 0;
-//    while(clock() < endTime){
-//        if(complete_all){
-//            break;
-//        }
-//        std::swap(tempCourse[0], tempCourse[index]);
-//        this->courses = tempCourse;
+    int start_index = 1;
+    bool timeToChangeOrder;
+    while(clock() < endTime){
+        timeToChangeOrder = false;
+        if(complete_all){
+            break;
+        }
+        if(index != 0){
+            tempCourse.erase(tempCourse.begin() + index);
+            tempCourse.insert(tempCourse.begin(), *it);
+        }
+        this->courses.assign(tempCourse.begin(), tempCourse.end());
     #ifdef Test
-    //    int totalTimes = 0;
-    //    int conflictByClassRoom = 0;
-    //    int conflictByTeacherOrClass = 0;
-    //    int succeedAddTimes = 0;
+        int totalTimes = 0;
+        int conflictByClassRoom = 0;
+        int conflictByTeacherOrClass = 0;
+        int succeedAddTimes = 0;
     #endif
         while (!complete_all) {
             //这个for循环用于找到初始的教室和时间
@@ -162,16 +166,16 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
                     for (WeeklyLesson weeklyTime = WeeklyLesson::firstLesson(); weeklyTime <= WeeklyLesson::lastLesson(); ++weeklyTime) {
                         std::vector<classroom>::iterator room_it = this->rooms.begin();
                         for (; room_it != this->rooms.end(); ++room_it) {
-                            bool changeTime = false;
                             //如果教室太小则跳过
                             //这里可以添加自定义教室规则
                             if (room_it->getCapacity() < room_size_limit)continue;
+                            bool changeTime = false;
                             std::vector<course>::iterator course_it = courses.begin();
                             for (; course_it != courses.end(); ++course_it) {
                                 //如果该课程没有设置教室和时间则跳过
                                 if (course_it->getClassroomAndTime().isEmpty())continue;
     #ifdef Test
-    //                            ++totalTimes;
+                                ++totalTimes;
     #endif
                                 //时间与教室冲突
                                 if (course_it->getClassroomAndTime().isConflict(
@@ -183,7 +187,7 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
                                 {
                                     //如果还有别的符合条件的教室
     #ifdef Test
-    //                                ++conflictByClassRoom;
+                                    ++conflictByClassRoom;
     #endif
                                     bool changeClassroom = false;
                                     std::vector<classroom>::iterator temp_it = room_it + 1;
@@ -209,7 +213,7 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
                                     //换时间
                                     changeTime = true;
     #ifdef Test
-    //                                ++conflictByTeacherOrClass;
+                                    ++conflictByTeacherOrClass;
     #endif
                                     break;
                                 }
@@ -219,7 +223,7 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
                             }
                             if (course_it == courses.end()) {
     #ifdef Test
-    //                            ++succeedAddTimes;
+                                ++succeedAddTimes;
     #endif
                                 myTime temp = myTime(static_cast<unsigned short>(start_week),
                                     static_cast<unsigned short>(end_week));
@@ -240,20 +244,24 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
                     ++end_week;
                 }
                 if (end_week == 21) {
+                    it->set_room_time(classroomAndTime());
                     std::cout << "无法分配教室和时间" << std::endl;
+                    std::cout << index << std::endl;
     //				system("pause");
     #ifdef Test
-                    std::cout << "---------------" << std::endl;
-                    std::cout << "无法分配的教师为: " << it->getTeacher().getTeacherName() << std::endl;
-                    std::cout << "无法分配的学科为: " << it->getSubject().getName() << std::endl;
-    //                std::cout << "总次数: " << totalTimes << std::endl;
-    //                std::cout << "成功次数: " << succeedAddTimes << std::endl;
-    //                std::cout << "教室冲突次数: " << conflictByClassRoom << std::endl;
-    //                std::cout << "教师或班级冲突次数: " << conflictByTeacherOrClass << std::endl;
+                    if(index != 0){
+                        std::cout << "---------------" << std::endl;
+                        std::cout << "无法分配的教师为: " << it->getTeacher().getTeacherName() << std::endl;
+                        std::cout << "无法分配的学科为: " << it->getSubject().getName() << std::endl;
+                        timeToChangeOrder = true;
+                        break;
+                    }
+                    std::cout << "该轮次总次数: " << totalTimes << std::endl;
+                    std::cout << "成功次数: " << succeedAddTimes << std::endl;
+                    std::cout << "教室冲突次数: " << conflictByClassRoom << std::endl;
+                    std::cout << "教师或班级冲突次数: " << conflictByTeacherOrClass << std::endl;
     #endif
-                    timeToChangeOrder = true;
-                    break;
-//                    exit(-1);
+                    exit(-1);
                 }
             }
             if(timeToChangeOrder){
@@ -308,9 +316,11 @@ void courseSelectTeacherStrategy::courseSelectClassroomAndTime()
             }
             ++start_index;
         }
-//    }
+    }
 #ifdef Test
+    int count = -1;
 	for (course c : courses) {
+        std::cout << ++count << std::endl;
         std::cout << c.getInfo();
     }
 #endif
